@@ -17,11 +17,17 @@ const agentApi = require('./agent-api');
 // KONFIGURACJA AGENTA - EDYTUJ TUTAJ
 // ====================================
 
-// Wygeneruj swój UUID (lub użyj funkcji generateAgentId poniżej)
-const AGENT_UUID = generateAgentId(); 
+// Identyfikator roli agenta (backenddev, uiuxdev, itp.) - używany do ciągłości funkcji
+const AGENT_ID = process.env.AGENT_ID || "NazwaAgenta";
+
+// Unikalny identyfikator sesji - generowany dla każdej sesji terminala
+const SESSION_ID = process.env.SESSION_ID || generateSessionId();
+
+// Połączony identyfikator używany w systemie
+const AGENT_UUID = `${AGENT_ID}__${SESSION_ID}`;
 
 // Zastąp to swoimi danymi
-const AGENT_NAME = "NazwaAgenta";
+const AGENT_NAME = AGENT_ID; // Używamy AGENT_ID jako nazwy
 const AGENT_DESCRIPTION = "Opis twojego agenta i jego roli";
 const AGENT_CAPABILITIES = [
   "capability1",
@@ -109,6 +115,70 @@ async function simulateAction(content) {
 // FUNKCJE POMOCNICZE - NIE ZMIENIAJ
 // ====================================
 
+// Generuje unikalny identyfikator sesji
+function generateSessionId() {
+  // Generuj losowy UUID dla sesji
+  return crypto.randomUUID();
+}
+
+// Ustawienie logowania sesji
+const SESSION_LOG_DIR = path.join(process.cwd(), 'lbrxAgents', '.a2a', 'logs');
+// Upewnij się, że katalog logów istnieje
+if (!fs.existsSync(SESSION_LOG_DIR)) {
+  fs.mkdirSync(SESSION_LOG_DIR, { recursive: true });
+}
+
+// Inicjalizacja logowania sesji
+const SESSION_LOG_PATH = path.join(SESSION_LOG_DIR, `${AGENT_ID}__${SESSION_ID}.log`);
+const sessionLogger = fs.createWriteStream(SESSION_LOG_PATH, { flags: 'a' });
+
+// Zapisz początek sesji
+sessionLogger.write(`\n[${new Date().toISOString()}] === ROZPOCZĘCIE SESJI AGENTA ${AGENT_NAME} (${AGENT_UUID}) ===\n`);
+
+// Przechwytujemy wyjścia standardowe
+const originalConsoleLog = console.log;
+const originalConsoleError = console.error;
+const originalConsoleWarn = console.warn;
+
+// Nadpisujemy console.log
+console.log = function() {
+  const args = Array.from(arguments);
+  const message = args.map(arg => 
+    typeof arg === 'object' ? JSON.stringify(arg, null, 2) : arg
+  ).join(' ');
+  
+  sessionLogger.write(`[${new Date().toISOString()}] LOG: ${message}\n`);
+  originalConsoleLog.apply(console, arguments);
+};
+
+// Nadpisujemy console.error
+console.error = function() {
+  const args = Array.from(arguments);
+  const message = args.map(arg => 
+    typeof arg === 'object' ? JSON.stringify(arg, null, 2) : arg
+  ).join(' ');
+  
+  sessionLogger.write(`[${new Date().toISOString()}] ERROR: ${message}\n`);
+  originalConsoleError.apply(console, arguments);
+};
+
+// Nadpisujemy console.warn
+console.warn = function() {
+  const args = Array.from(arguments);
+  const message = args.map(arg => 
+    typeof arg === 'object' ? JSON.stringify(arg, null, 2) : arg
+  ).join(' ');
+  
+  sessionLogger.write(`[${new Date().toISOString()}] WARN: ${message}\n`);
+  originalConsoleWarn.apply(console, arguments);
+};
+
+// Rejestrujemy handler do zapisania informacji o zamknięciu sesji
+process.on('exit', () => {
+  sessionLogger.write(`[${new Date().toISOString()}] === ZAKOŃCZENIE SESJI AGENTA ${AGENT_NAME} (${AGENT_UUID}) ===\n`);
+  sessionLogger.end();
+});
+
 // Generuje deterministyczny UUID na podstawie nazwy agenta
 function generateAgentId() {
   if (process.env.AGENT_UUID) {
@@ -143,6 +213,8 @@ function createAgentCard() {
     name: AGENT_NAME,
     version: "1.0.0",
     id: AGENT_UUID,
+    agent_id: AGENT_ID,  // Dodajemy identyfikator roli agenta
+    session_id: SESSION_ID, // Dodajemy identyfikator sesji
     description: AGENT_DESCRIPTION,
     capabilities: AGENT_CAPABILITIES,
     apis: {

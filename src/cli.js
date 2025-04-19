@@ -5,12 +5,32 @@
  * Command-line interface for the Agent-to-Agent Protocol
  */
 
-const a2a = require('./index');
-const api = require('./agent-api');
+// Load OpenAI token limiter if available
 const fs = require('fs');
 const path = require('path');
+
+const openaiThrottlePaths = [
+  path.join(process.cwd(), 'openai-throttle.js'), // Current project dir
+  path.join(require('os').homedir(), '.codex', 'openai-throttle.js') // ~/.codex dir
+];
+
+for (const throttlePath of openaiThrottlePaths) {
+  if (fs.existsSync(throttlePath)) {
+    try {
+      require(throttlePath);
+      console.log(`[A2A CLI] Loaded OpenAI token limiter from ${throttlePath}`);
+      break;
+    } catch (e) {
+      console.warn(`[A2A CLI] Warning: Found but failed to load OpenAI token limiter: ${e.message}`);
+    }
+  }
+}
+
+const a2a = require('./index');
+const api = require('./agent-api');
 const crypto = require('crypto');
 const readline = require('readline');
+const { spawn } = require('child_process');
 
 // Parse command line arguments
 const args = process.argv.slice(2);
@@ -48,24 +68,27 @@ Usage:
   a2a <command> [options]
 
 Commands:
-  init [dir]           Initialize the A2A protocol in the specified directory (default: /tmp/a2a-protocol)
-  create-agent <name>  Create a new agent with the given name
-  discover             List all available agents
-  messages             Check for new messages
-  send <agent> <msg>   Send a message to another agent
-  watch                Watch for new messages (Ctrl+C to exit)
-  inject <agent> <file> Inject instructions from a file to an agent
-  run <agent-file>     Run an agent implementation
-  help                 Show this help message
+  init [dir]               Initialize the A2A protocol in the specified directory (default: /tmp/a2a-protocol)
+  create-agent <name>         Create a new agent with the given name
+  discover                 List all available agents
+  messages                 Check for new messages
+  send <agent> <msg>       Send a message to another agent
+  watch                    Watch for new messages (Ctrl+C to exit)
+  inject <agent> <file>    Inject instructions from a file to an agent
+  run <agent-file>         Run an agent implementation
+  monitor <agent> [session] Monitor agent session output (live or logs)
+  help                     Show this help message
 
 Examples:
   a2a init ~/my-agents
   a2a create-agent "My Assistant"
   a2a discover
-  a2a send 30D8C3EB-D0D2-4AA0-B911-D60F866E1E2D "Hello agent!"
+  a2a send <agent-id> "Hello agent!"
   a2a messages
-  a2a inject 30D8C3EB-D0D2-4AA0-B911-D60F866E1E2D instructions.md
+  a2a inject <agent-id> instructions.md
   a2a run my-agent.js
+  a2a monitor uiuxdev                    # List all sessions for uiuxdev agent
+  a2a monitor uiuxdev <session-id>       # Monitor specific session
 `);
 }
 
@@ -239,6 +262,124 @@ function runAgentFile(agentFile) {
   }
 }
 
+/**
+ * Get all session logs for an agent
+ */
+function findAgentSessions(agentId) {
+  const logsDir = path.join(config.baseDir || '/tmp/a2a-protocol', 'logs');
+  
+  if (!fs.existsSync(logsDir)) {
+    return [];
+  }
+  
+  // Znajdź wszystkie pliki logów pasujące do wzorca 'agentId__*'
+  return fs.readdirSync(logsDir)
+    .filter(file => file.startsWith(`${agentId}__`) && file.endsWith('.log'))
+    .map(file => file.replace('.log', '').split('__')[1]); // Wyodrębnij SESSION_ID
+}
+
+/**
+ * Check if session is active
+ */
+function isSessionActive(agentId, sessionId) {
+  // Sprawdź status agenta w systemie
+  const agents = api.discoverAgents();
+  const fullId = `${agentId}__${sessionId}`;
+  
+  // Szukaj agenta o podanym ID
+  const agent = agents.find(a => a.id === fullId);
+  return agent && agent.active;
+}
+
+/**
+ * Get last N lines from a file
+ */
+function getLastLines(filePath, numLines) {
+  try {
+    const content = fs.readFileSync(filePath, 'utf8');
+    const lines = content.split('\n');
+    return lines.slice(-numLines);
+  } catch (error) {
+    return [];
+  }
+}
+
+/**
+ * Monitor agent session
+ */
+function monitorAgentSession(agentId, sessionId) {
+  const logsDir = path.join(config.baseDir || '/tmp/a2a-protocol', 'logs');
+  
+  // Upewnij się, że katalog logów istnieje
+  if (!fs.existsSync(logsDir)) {
+    fs.mkdirSync(logsDir, { recursive: true });
+    console.log(`Nie znaleziono żadnych logów agentów. Utworzono katalog: ${logsDir}`);
+    return;
+  }
+  
+  // Jeśli podano tylko agentId, znajdź wszystkie sesje tego agenta
+  if (!sessionId) {
+    const sessions = findAgentSessions(agentId);
+    if (sessions.length === 0) {
+      console.log(`Nie znaleziono sesji dla agenta ${agentId}`);
+      return;
+    }
+    
+    console.log(`\nZnaleziono ${sessions.length} sesji dla agenta ${agentId}:`);
+    sessions.forEach((session, i) => {
+      const active = isSessionActive(agentId, session);
+      console.log(`${i+1}. SESSION: ${session} ${active ? '[AKTYWNA]' : '[zakończona]'}`);
+    });
+    console.log('\nAby monitorować sesję, użyj: a2a monitor ' + agentId + ' <session-id>');
+    return;
+  }
+  
+  // Pełny ID z agentId i sessionId
+  const fullId = `${agentId}__${sessionId}`;
+  const logPath = path.join(logsDir, `${fullId}.log`);
+  
+  if (!fs.existsSync(logPath)) {
+    console.log(`Nie znaleziono logów dla sesji ${fullId}`);
+    return;
+  }
+  
+  console.log(`\nMonitorowanie sesji ${fullId}. Naciśnij Ctrl+C, aby zakończyć.\n`);
+  
+  // Sprawdź czy sesja jest aktywna
+  const isActive = isSessionActive(agentId, sessionId);
+  console.log(`Status sesji: ${isActive ? 'AKTYWNA' : 'zakończona'}`);
+  
+  // Wyświetl ostatnie 10 linii logów
+  const lastLines = getLastLines(logPath, 10);
+  if (lastLines.length > 0) {
+    console.log('\nOstatnie wpisy z logów:');
+    lastLines.forEach(line => {
+      if (line.trim()) console.log(line);
+    });
+    console.log('');
+  }
+  
+  // Jeśli sesja jest aktywna, monitoruj na żywo
+  if (isActive) {
+    console.log('Rozpoczynam monitorowanie na żywo...\n');
+    const tail = spawn('tail', ['-f', logPath]);
+    
+    tail.stdout.on('data', (data) => {
+      process.stdout.write(data);
+    });
+    
+    // Obsługa Ctrl+C
+    process.on('SIGINT', () => {
+      console.log('\nZakończono monitorowanie sesji');
+      tail.kill();
+      process.exit(0);
+    });
+  } else {
+    // Dla zakończonych sesji wyświetl komunikat
+    console.log('Sesja została zakończona. Powyżej znajdują się ostatnie wpisy z logów.');
+  }
+}
+
 // Execute the appropriate command
 switch (command) {
   case 'init':
@@ -288,6 +429,14 @@ switch (command) {
       break;
     }
     runAgentFile(args[1]);
+    break;
+    
+  case 'monitor':
+    if (!args[1]) {
+      console.error('Brak ID agenta. Użycie: a2a monitor <agent-id> [session-id]');
+      break;
+    }
+    monitorAgentSession(args[1], args[2]);
     break;
     
   case 'help':
