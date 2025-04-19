@@ -35,8 +35,27 @@ Codex CLI can automatically load a local plugin file named `openai-throttle.js` 
 
 ## Configuration
 
-- **OPENAI_TOKEN_LIMIT**: Maximum number of tokens per minute. Overrides the default 30000 tokens/min.
-- **OPENAI_DEFAULT_MAX_TOKENS**: Tokens assumed for calls that do not set `max_tokens`. Overrides default of 1024.
+* **OPENAI_TOKEN_LIMIT**: Maximum number of tokens per minute. Overrides the default 30000 tokens/min.
+* **OPENAI_DEFAULT_MAX_TOKENS**: Tokens assumed for calls that do not set `max_tokens`. Overrides default of 1024.
+
+### Model-specific configuration
+You can also set per-model quotas and default token usages by defining environment variables with the model key:
+
+* `OPENAI_TOKEN_LIMIT_<MODELKEY>`: Token limit per minute for model `<MODELKEY>`.
+* `OPENAI_DEFAULT_MAX_TOKENS_<MODELKEY>`: Default max_tokens for requests to `<MODELKEY>` when none is specified.
+
+Here `<MODELKEY>` is the uppercased model name with non-alphanumeric characters replaced by underscores. For example:
+```bash
+# Set GPT-4 quota to 50000 tokens/min
+export OPENAI_TOKEN_LIMIT_GPT_4=50000
+
+# Use 2048 max_tokens by default for GPT-4
+export OPENAI_DEFAULT_MAX_TOKENS_GPT_4=2048
+
+# Set O3 model quota to 30000 tokens/min and default 4096 tokens
+export OPENAI_TOKEN_LIMIT_O3=30000
+export OPENAI_DEFAULT_MAX_TOKENS_O3=4096
+```
 
 ## How it works
 

@@ -9,8 +9,26 @@ const a2a = require('./index');
 const api = require('./agent-api');
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 const crypto = require('crypto');
 const readline = require('readline');
+
+// Load codex-specific OpenAI throttle plugin if present (project-level overrides global)
+try {
+  const cwdPlugin  = path.join(process.cwd(), 'openai-throttle.js');
+  const homePlugin = path.join(os.homedir(), '.codex', 'openai-throttle.js');
+  let pluginPath;
+  if (fs.existsSync(cwdPlugin)) {
+    pluginPath = cwdPlugin;
+  } else if (fs.existsSync(homePlugin)) {
+    pluginPath = homePlugin;
+  }
+  if (pluginPath) {
+    require(pluginPath);
+  }
+} catch (e) {
+  console.warn(`Codex: Failed to load openai-throttle plugin: ${e.message}`);
+}
 
 // Parse command line arguments
 const args = process.argv.slice(2);
