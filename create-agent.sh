@@ -41,9 +41,9 @@ EOL
 sed "s/TWÓJ-UUID-TUTAJ/${AGENT_UUID}/g; s/NazwaAgenta/${AGENT_NAME}/g; s/Opis twojego agenta i jego roli/${AGENT_DESCRIPTION}/g" "$(dirname "$0")/agent-template.js" > "$(dirname "$0")/${AGENT_NAME}-agent.js"
 
 # Opublikuj możliwości
-node -e "const api = require('./agents/communication/agent-api.js'); api.publishCapabilities();"
+node -e "const api = require('./agent-api.js'); api.publishCapabilities();"
 
 echo "Agent ${AGENT_NAME} utworzony pomyślnie!"
 echo "UUID: ${AGENT_UUID}"
 echo "Możesz uruchomić agenta poleceniem:"
-echo "node agents/communication/${AGENT_NAME}-agent.js"
+echo "node ${AGENT_NAME}-agent.js"

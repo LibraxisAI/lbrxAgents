@@ -13,4 +13,4 @@ MESSAGE_TEXT=$2
 MESSAGE_TYPE=${3:-"query"}
 
 # Wysyłanie wiadomości przez API
-node -e "const api = require('./agents/communication/agent-api.js'); const result = api.sendMessage('$RECIPIENT_ID', { text: '$MESSAGE_TEXT' }, '$MESSAGE_TYPE'); console.log(result ? 'Wiadomość wysłana pomyślnie' : 'Błąd wysyłania wiadomości');"
+node -e "const api = require('./agent-api.js'); const result = api.sendMessage('$RECIPIENT_ID', { text: '$MESSAGE_TEXT' }, '$MESSAGE_TYPE'); console.log(result ? 'Wiadomość wysłana pomyślnie' : 'Błąd wysyłania wiadomości');"

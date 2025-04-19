@@ -5,7 +5,7 @@
 echo "Aktywni agenci w systemie:"
 echo "============================"
 
-find /tmp/quantum-scout/agents/discovery -name "*.json" -type f | sort | while read -r file; do
+find /tmp/a2a-protocol/discovery -name "*.json" -type f | sort | while read -r file; do
   agent_name=$(grep -m 1 "name" "$file" | cut -d '"' -f 4)
   agent_id=$(grep -m 1 "id" "$file" | cut -d '"' -f 4)
   agent_desc=$(grep -m 1 "description" "$file" | cut -d '"' -f 4)
@@ -21,7 +21,7 @@ find /tmp/quantum-scout/agents/discovery -name "*.json" -type f | sort | while r
 done
 
 echo "Aby wysłać wiadomość, użyj CLI:"
-echo "node agents/communication/agent-cli.js"
+echo "node agent-cli.js"
 echo "lub API w kodzie:"
-echo "const agentApi = require('./agents/communication/agent-api');"
+echo "const agentApi = require('./agent-api');"
 echo "agentApi.sendMessage('<id-odbiorcy>', { text: 'Treść wiadomości' });"
