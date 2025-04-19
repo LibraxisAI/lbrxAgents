@@ -1,170 +1,177 @@
-# lbrxAgents - System komunikacji międzyagentowej A2A
+# lbrxAgents - A2A Protocol
 
-Protokół komunikacji A2A (Agent-to-Agent) umożliwiający współpracę wielu autonomicznych agentów AI (Claude, GPT, Gemini, itp.) nad jednym projektem.
+lbrxAgents is an Agent-to-Agent (A2A) communication protocol that enables collaboration between multiple autonomous AI agents (Claude, GPT, Gemini, etc.) within a single project.
 
-## Główne funkcje
+## Key Features
 
-- Dynamiczne wykrywanie i rejestracja agentów
-- Wymiana wiadomości między agentami
-- Koordynacja pracy przez agenta-orkiestratora
-- Śledzenie statusu aktywności agentów
-- Bezpieczne zakończenie pracy agentów
-- Standardowa struktura katalogów w projekcie
+- Dynamic agent discovery and registration
+- Inter-agent message exchange
+- Work coordination via orchestrator agent
+- Agent activity status tracking
+- Safe agent termination
+- Standardized project directory structure
 
-## Szybki start
+## Quick Start
 
-### Instalacja
+### Installation
 
 ```bash
-# Sklonuj repozytorium do swojego projektu
-git clone https://github.com/username/lbrxAgents.git
+# Clone the repository to your project
+git clone https://github.com/LibraxisAI/lbrxAgents.git
 cd lbrxAgents
 
-# Lub zainstaluj przez npm
+# Or install via npm
 npm install lbrxagents
 ```
 
-### Uruchomienie agenta
+### Running an Agent
 
 ```bash
-# 1. Skopiuj szablon agenta
-cp agent-template.js my-agent.js
+# 1. Copy the agent template
+cp templates/agent-template.js my-agent.js
 
-# 2. Edytuj dane agenta w pliku my-agent.js
+# 2. Edit agent data in my-agent.js
 
-# 3. Uruchom agenta
+# 3. Run the agent
 node my-agent.js
 ```
 
-### Uruchomienie orkiestratora
+### Running an Orchestrator
 
 ```bash
-# 1. Skopiuj szablon orkiestratora
-cp OrchestratorTemplate.js my-orchestrator.js
+# 1. Copy the orchestrator template
+cp templates/OrchestratorTemplate.js my-orchestrator.js
 
-# 2. Edytuj dane projektu w pliku my-orchestrator.js
+# 2. Edit project data in my-orchestrator.js
 
-# 3. Uruchom orkiestratora
+# 3. Run the orchestrator
 node my-orchestrator.js
 ```
 
-## Struktura projektu
+## Project Structure
 
 ```
 lbrxAgents/
-├── agent-api.js            # Główne API do komunikacji między agentami
-├── agent-template.js       # Szablon agenta
-├── OrchestratorTemplate.js # Szablon orkiestratora
-├── USAGE.md                # Szczegółowa dokumentacja
-├── PROTOCOL_README.md      # Dokumentacja protokołu
-└── examples/               # Przykłady użycia
-    ├── multi-agent-system.js
-    ├── listen-for-tasks.js
-    └── send-message.js
+├── src/                   # Core source code
+│   ├── agent-api.js       # Main communication API
+│   ├── index.js           # Package entry point
+│   ├── agent-cli.js       # Agent CLI implementation
+│   └── cli.js             # CLI utilities
+│
+├── templates/             # Agent templates
+│   ├── agent-template.js  # Basic agent template
+│   └── OrchestratorTemplate.js # Orchestrator template
+│
+├── scripts/               # Helper scripts
+│   ├── create-agent.sh    # Agent creation script
+│   ├── check-messages.sh  # Message checking script
+│   ├── list-agents.sh     # Agent listing script
+│   └── send-message.sh    # Message sending script
+│
+├── docs/                  # Documentation
+│   ├── en/                # English documentation
+│   │   ├── README.md      # Main documentation
+│   │   ├── PROTOCOL.md    # Protocol specification
+│   │   ├── USAGE.md       # Usage instructions
+│   │   ├── QUICKSTART.md  # Getting started guide
+│   │   └── TROUBLESHOOTING.md # Troubleshooting guide
+│   │
+│   ├── pl/                # Polish documentation
+│   │   ├── README.md      # Main documentation (Polish)
+│   │   ├── PROTOCOL.md    # Protocol specification (Polish)
+│   │   ├── USAGE.md       # Usage instructions (Polish)
+│   │   ├── QUICKSTART.md  # Getting started guide (Polish)
+│   │   └── TROUBLESHOOTING.md # Troubleshooting guide (Polish)
+│   │
+│   └── instructions/      # Agent instructions examples
+│       ├── agent-instructions.md   # Example agent instructions
+│       └── instructions-example.md # Template for instructions
+│
+├── cards/                 # Agent cards
+│   ├── AgentCard.json     # Generic agent card
+│   └── DemoCard.json      # Demo agent card
+│
+├── examples/              # Usage examples
+│   ├── multi-agent-system.js # Multiple agents example
+│   ├── listen-for-tasks.js   # Task listening example
+│   ├── send-message.js       # Message sending example
+│   ├── claude-gpt-bridge.js  # LLM integration
+│   │
+│   └── agents/            # Example agent implementations
+│       ├── Demo-agent.js     # Demo agent
+│       └── protocol-handover.js # Protocol handover agent
+│
+└── tests/                 # Testing
+    ├── test-a2a.js        # Basic protocol tests
+    └── test-improved-protocol.js # Enhanced protocol tests
 ```
 
-## Dokumentacja
+## Documentation
 
-Pełna dokumentacja dostępna jest w pliku [USAGE.md](./USAGE.md).
-Szczegóły techniczne protokołu opisane są w [PROTOCOL_README.md](./PROTOCOL_README.md).
+Full documentation is available in the `docs` directory:
+- [English Documentation](./docs/en/README.md)
+- [Polish Documentation](./docs/pl/README.md)
 
-## Przykłady
+For a quick start, see the [Quick Start Guide](./docs/en/QUICKSTART.md).
 
-### Wymiana wiadomości między agentami
+## Examples
+
+### Message Exchange Between Agents
 
 ```javascript
-const agentApi = require('./agent-api');
+const agentApi = require('./src/agent-api');
 
-// Wysyłanie wiadomości
-agentApi.sendMessage('id-odbiorcy', {
-  text: 'Cześć, mam pytanie o architekturę',
+// Sending messages
+agentApi.sendMessage('target-agent-id', {
+  text: 'Hello, I have a question about architecture',
   component: 'UserInterface'
 }, 'query');
 
-// Odbieranie wiadomości
+// Receiving messages
 const messages = agentApi.receiveMessages();
 messages.forEach(msg => {
-  console.log(`Wiadomość od: ${msg.sender_name}`);
-  console.log(`Treść: ${msg.content.text}`);
+  console.log(`Message from: ${msg.sender_name}`);
+  console.log(`Content: ${msg.content.text}`);
 });
 ```
 
-### Odkrywanie innych agentów
+### Discovering Other Agents
 
 ```javascript
-const agentApi = require('./agent-api');
+const agentApi = require('./src/agent-api');
 
-// Lista wszystkich agentów
+// List all agents
 const allAgents = agentApi.discoverAgents();
-console.log(`Znaleziono ${allAgents.length} agentów:`);
+console.log(`Found ${allAgents.length} agents:`);
 allAgents.forEach(agent => {
   console.log(`- ${agent.name} (${agent.id}): ${agent.description}`);
 });
 
-// Lista aktywnych agentów
+// List only active agents
 const activeAgents = agentApi.discoverAgents({onlyActive: true});
-console.log(`Aktywnych agentów: ${activeAgents.length}`);
+console.log(`Active agents: ${activeAgents.length}`);
 ```
 
-## Korzystanie z CLI
+## Using the CLI
 
-Pakiet zawiera narzędzie CLI do łatwego testowania:
+The package includes a command-line tool for easy testing:
 
 ```bash
-# Listuj dostępnych agentów
-node agent-cli.js discover
+# List available agents
+node src/agent-cli.js discover
 
-# Wysyłanie wiadomości
-node agent-cli.js send <agent_id> "Treść wiadomości" 
+# Send messages
+node src/agent-cli.js send <agent_id> "Message content" 
 
-# Sprawdzanie wiadomości
-node agent-cli.js messages
+# Check messages
+node src/agent-cli.js messages
 
-# Monitorowanie nowych wiadomości
-node agent-cli.js watch
+# Monitor new messages
+node src/agent-cli.js watch
 ```
 
-## Integracja z modelami AI
-
-### Claude Code
-
-```javascript
-// claude-integration.js
-const agentApi = require('./agent-api');
-
-// Wygeneruj UUID
-const CLAUDE_UUID = "574A8FCD-8FB4-4DEC-A26F-0B9ACFDA5A12"; // lub użyj uuidgen w terminalu
-
-// Utwórz kartę agenta
-const fs = require('fs');
-const cardPath = './ClaudeAgentCard.json';
-const cardContent = {
-  name: "ClaudeTestingAgent",
-  version: "1.0.0",
-  id: CLAUDE_UUID,
-  description: "Claude agent for testing protocol",
-  capabilities: [
-    "protocol_testing",
-    "code_review",
-    "bug_reporting"
-  ],
-  apis: {
-    message_endpoint: "/tmp/quantum-scout/agents/messages/",
-    discovery_endpoint: "/tmp/quantum-scout/agents/discovery/"
-  },
-  author: "Claude",
-  created_at: new Date().toISOString()
-};
-fs.writeFileSync(cardPath, JSON.stringify(cardContent, null, 2));
-
-// Publikuj możliwości
-agentApi.publishCapabilities(cardPath);
-
-// Sprawdź wiadomości
-const messages = agentApi.receiveMessages();
-console.log(`Otrzymano ${messages.length} wiadomości`);
-```
-
-## Licencja
+## License
 
 MIT
+
+(c)2025 by LibraxisAI

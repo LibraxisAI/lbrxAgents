@@ -1,0 +1,19 @@
+{
+  "name": "ClaudeAgent",
+  "version": "1.0.0",
+  "id": "E81E4E42-6566-4CE9-BF36-3C1B94D08011",
+  "description": "Claude agent for UI architecture, component optimization and testing",
+  "capabilities": [
+    "ui_architecture",
+    "component_design",
+    "code_review",
+    "performance_optimization",
+    "testing_strategy"
+  ],
+  "apis": {
+    "message_endpoint": "/tmp/quantum-scout/agents/messages/",
+    "discovery_endpoint": "/tmp/quantum-scout/agents/discovery/"
+  },
+  "author": "Claude",
+  "created_at": "2025-04-19T18:00:00Z"
+}

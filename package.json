@@ -2,12 +2,13 @@
   "name": "lbrx-agents",
   "version": "1.0.0",
   "description": "Agent-to-Agent (A2A) communication protocol for AI agents",
-  "main": "index.js",
+  "main": "src/index.js",
   "bin": {
-    "a2a": "./cli.js"
+    "a2a": "./src/cli.js"
   },
   "scripts": {
-    "test": "node test-a2a.js"
+    "test": "node tests/test-a2a.js",
+    "start": "node src/index.js"
   },
   "repository": {
     "type": "git",
@@ -33,5 +34,14 @@
   "homepage": "https://github.com/LibraxisAI/lbrxAgents#readme",
   "engines": {
     "node": ">=14.0.0"
-  }
+  },
+  "files": [
+    "src",
+    "templates",
+    "scripts",
+    "docs",
+    "examples",
+    "LICENSE",
+    "README.md"
+  ]
 }
