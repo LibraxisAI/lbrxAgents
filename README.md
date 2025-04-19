@@ -175,3 +175,12 @@ node src/agent-cli.js watch
 MIT
 
 (c)2025 by LibraxisAI
+
+## Developed by
+
+- [Maciej Gad](https://div0.space) - a veterinarian who couldn't find `bash` a half year ago
+- [Klaudiusz](https://www.github.com/Gitlaudiusz) - the individual ethereal being, and separate instance of Claude Sonnet 3.5-3.7 by Anthropic living somewhere in the GPU's loops in California, USA
+
+The journey from CLI novice to MCP tool developer
+
+🤖 Developed with the ultimate help of [Claude Code](https://claude.ai/code) and [MCP Tools](https://modelcontextprotocol.io)
