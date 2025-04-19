@@ -4,12 +4,26 @@ lbrxAgents is an Agent-to-Agent (A2A) communication protocol that enables collab
 
 ## Key Features
 
+### Core Protocol
 - Dynamic agent discovery and registration
 - Inter-agent message exchange
 - Work coordination via orchestrator agent
 - Agent activity status tracking
 - Safe agent termination
 - Standardized project directory structure
+
+### Session Management
+- Two-level agent identification (role/session)
+- Session logging and monitoring
+- Terminal output capture
+- Live session tracking
+- Historical session logs
+
+### Integration Features
+- OpenAI API token throttling
+- Token-based rate limiting
+- Model-specific quotas
+- Plugin system for external integrations
 
 ## Quick Start
 
@@ -56,10 +70,10 @@ lbrxAgents/
 │   ├── agent-api.js       # Main communication API
 │   ├── index.js           # Package entry point
 │   ├── agent-cli.js       # Agent CLI implementation
-│   └── cli.js             # CLI utilities
+│   └── cli.js             # CLI utilities with session monitoring
 │
 ├── templates/             # Agent templates
-│   ├── agent-template.js  # Basic agent template
+│   ├── agent-template.js  # Basic agent template with session logging
 │   └── OrchestratorTemplate.js # Orchestrator template
 │
 ├── scripts/               # Helper scripts
@@ -74,18 +88,29 @@ lbrxAgents/
 │   │   ├── PROTOCOL.md    # Protocol specification
 │   │   ├── USAGE.md       # Usage instructions
 │   │   ├── QUICKSTART.md  # Getting started guide
-│   │   └── TROUBLESHOOTING.md # Troubleshooting guide
+│   │   ├── TROUBLESHOOTING.md # Troubleshooting guide
+│   │   └── MONITORING.md  # Session monitoring guide (EN)
 │   │
 │   ├── pl/                # Polish documentation
 │   │   ├── README.md      # Main documentation (Polish)
 │   │   ├── PROTOCOL.md    # Protocol specification (Polish)
 │   │   ├── USAGE.md       # Usage instructions (Polish)
 │   │   ├── QUICKSTART.md  # Getting started guide (Polish)
-│   │   └── TROUBLESHOOTING.md # Troubleshooting guide (Polish)
+│   │   ├── TROUBLESHOOTING.md # Troubleshooting guide (Polish)
+│   │   └── MONITORING.md  # Session monitoring guide (PL)
+│   │
+│   ├── codex/             # Codex integration documentation
+│   │   ├── README.md      # Codex features overview
+│   │   └── openai-throttle.md # OpenAI token throttling docs
+│   │
+│   ├── monitoring/        # Session monitoring documentation
+│   │   └── README.md      # Session monitoring overview
 │   │
 │   └── instructions/      # Agent instructions examples
 │       ├── agent-instructions.md   # Example agent instructions
 │       └── instructions-example.md # Template for instructions
+│
+├── openai-throttle.js     # OpenAI token throttling plugin
 │
 ├── cards/                 # Agent cards
 │   ├── AgentCard.json     # Generic agent card
@@ -109,10 +134,20 @@ lbrxAgents/
 ## Documentation
 
 Full documentation is available in the `docs` directory:
+
+### Core Protocol
 - [English Documentation](./docs/en/README.md)
 - [Polish Documentation](./docs/pl/README.md)
+- [Quick Start Guide](./docs/en/QUICKSTART.md)
 
-For a quick start, see the [Quick Start Guide](./docs/en/QUICKSTART.md).
+### Session Monitoring
+- [Session Monitoring (EN)](./docs/en/MONITORING.md)
+- [Session Monitoring (PL)](./docs/pl/MONITORING.md)
+- [Session Management Features](./docs/monitoring/README.md)
+
+### Integration Features
+- [OpenAI Throttling](./docs/codex/openai-throttle.md)
+- [Codex Features](./docs/codex/README.md)
 
 ## Examples
 
@@ -168,7 +203,25 @@ node src/agent-cli.js messages
 
 # Monitor new messages
 node src/agent-cli.js watch
+
+# Monitor agent sessions
+node src/agent-cli.js monitor <agent_id>             # List all sessions
+node src/agent-cli.js monitor <agent_id> <session_id> # Monitor specific session
 ```
+
+## Session Management
+
+The framework provides a two-level identification system for agents:
+
+```
+AGENT_ID__SESSION_ID
+```
+
+Where:
+- **AGENT_ID**: Functional role (e.g., "uiuxdev", "backenddev")
+- **SESSION_ID**: Unique session identifier (UUID)
+
+This allows multiple instances of the same agent type to run simultaneously while maintaining clear separation between sessions.
 
 ## License
 
