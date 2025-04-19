@@ -1,230 +1,170 @@
-# A2A Protocol
+# lbrxAgents - System komunikacji międzyagentowej A2A
 
-A flexible Agent-to-Agent (A2A) communication protocol for AI assistants, agents, and automated systems. This library implements the core concepts of Google's A2A protocol, enabling seamless communication between different agent systems.
+Protokół komunikacji A2A (Agent-to-Agent) umożliwiający współpracę wielu autonomicznych agentów AI (Claude, GPT, Gemini, itp.) nad jednym projektem.
 
-## Features
+## Główne funkcje
 
-- Agent discovery and capability advertisement
-- Asynchronous message passing between agents
-- Task delegation and coordination
-- Cross-platform agent communication
-- Built-in logging and monitoring
-- Simple CLI for testing and debugging
+- Dynamiczne wykrywanie i rejestracja agentów
+- Wymiana wiadomości między agentami
+- Koordynacja pracy przez agenta-orkiestratora
+- Śledzenie statusu aktywności agentów
+- Bezpieczne zakończenie pracy agentów
+- Standardowa struktura katalogów w projekcie
 
-## Installation
+## Szybki start
 
-```bash
-npm install a2a-protocol
-# or
-yarn add a2a-protocol
-```
-
-## Quick Start
-
-### Creating an Agent
-
-```javascript
-const a2a = require('a2a-protocol');
-
-// Create a new agent
-const agent = a2a.createAgent({
-  name: 'MyAgent',
-  description: 'This agent does amazing things',
-  capabilities: ['text_analysis', 'code_review', 'data_processing']
-});
-
-console.log(`Agent created with ID: ${agent.id}`);
-```
-
-### Discovering Other Agents
-
-```javascript
-const agents = agent.discoverAgents();
-console.log('Available agents:');
-agents.forEach(a => {
-  console.log(`- ${a.name} (${a.id})`);
-  console.log(`  Capabilities: ${a.capabilities.join(', ')}`);
-});
-```
-
-### Sending Messages
-
-```javascript
-// Send a message to another agent
-const targetAgentId = '30D8C3EB-D0D2-4AA0-B911-D60F866E1E2D';
-agent.sendMessage(
-  targetAgentId,
-  { 
-    text: 'Hello from another agent',
-    data: { 
-      some: 'data',
-      timestamp: new Date().toISOString()
-    }
-  },
-  'notification' // message type
-);
-```
-
-### Receiving Messages
-
-```javascript
-// Check for new messages
-const messages = agent.receiveMessages();
-console.log(`Received ${messages.length} messages`);
-
-// Process messages
-messages.forEach(message => {
-  console.log(`From: ${message.sender_name}`);
-  console.log(`Content: ${JSON.stringify(message.content)}`);
-  
-  // Respond to a message
-  if (message.message_type === 'query') {
-    agent.respondToMessage(message, {
-      text: 'This is my response',
-      status: 'complete'
-    });
-  }
-});
-```
-
-## CLI Usage
-
-The package includes a command-line interface for easy testing:
+### Instalacja
 
 ```bash
-# Initialize the protocol
-npx a2a init ~/my-agents-dir
+# Sklonuj repozytorium do swojego projektu
+git clone https://github.com/username/lbrxAgents.git
+cd lbrxAgents
 
-# Create a new agent
-npx a2a create-agent "Analysis Agent" "Agent for data analysis" "data_analysis,statistics"
-
-# Discover available agents
-npx a2a discover
-
-# Send a message
-npx a2a send 30D8C3EB-D0D2-4AA0-B911-D60F866E1E2D "Hello from CLI"
-
-# Check messages
-npx a2a messages
-
-# Watch for new messages
-npx a2a watch
-
-# Inject instructions from a file
-npx a2a inject 30D8C3EB-D0D2-4AA0-B911-D60F866E1E2D instructions.md
+# Lub zainstaluj przez npm
+npm install lbrxagents
 ```
 
-## Integration with AI Models
+### Uruchomienie agenta
 
-### Running with Claude
+```bash
+# 1. Skopiuj szablon agenta
+cp agent-template.js my-agent.js
+
+# 2. Edytuj dane agenta w pliku my-agent.js
+
+# 3. Uruchom agenta
+node my-agent.js
+```
+
+### Uruchomienie orkiestratora
+
+```bash
+# 1. Skopiuj szablon orkiestratora
+cp OrchestratorTemplate.js my-orchestrator.js
+
+# 2. Edytuj dane projektu w pliku my-orchestrator.js
+
+# 3. Uruchom orkiestratora
+node my-orchestrator.js
+```
+
+## Struktura projektu
+
+```
+lbrxAgents/
+├── agent-api.js            # Główne API do komunikacji między agentami
+├── agent-template.js       # Szablon agenta
+├── OrchestratorTemplate.js # Szablon orkiestratora
+├── USAGE.md                # Szczegółowa dokumentacja
+├── PROTOCOL_README.md      # Dokumentacja protokołu
+└── examples/               # Przykłady użycia
+    ├── multi-agent-system.js
+    ├── listen-for-tasks.js
+    └── send-message.js
+```
+
+## Dokumentacja
+
+Pełna dokumentacja dostępna jest w pliku [USAGE.md](./USAGE.md).
+Szczegóły techniczne protokołu opisane są w [PROTOCOL_README.md](./PROTOCOL_README.md).
+
+## Przykłady
+
+### Wymiana wiadomości między agentami
+
+```javascript
+const agentApi = require('./agent-api');
+
+// Wysyłanie wiadomości
+agentApi.sendMessage('id-odbiorcy', {
+  text: 'Cześć, mam pytanie o architekturę',
+  component: 'UserInterface'
+}, 'query');
+
+// Odbieranie wiadomości
+const messages = agentApi.receiveMessages();
+messages.forEach(msg => {
+  console.log(`Wiadomość od: ${msg.sender_name}`);
+  console.log(`Treść: ${msg.content.text}`);
+});
+```
+
+### Odkrywanie innych agentów
+
+```javascript
+const agentApi = require('./agent-api');
+
+// Lista wszystkich agentów
+const allAgents = agentApi.discoverAgents();
+console.log(`Znaleziono ${allAgents.length} agentów:`);
+allAgents.forEach(agent => {
+  console.log(`- ${agent.name} (${agent.id}): ${agent.description}`);
+});
+
+// Lista aktywnych agentów
+const activeAgents = agentApi.discoverAgents({onlyActive: true});
+console.log(`Aktywnych agentów: ${activeAgents.length}`);
+```
+
+## Korzystanie z CLI
+
+Pakiet zawiera narzędzie CLI do łatwego testowania:
+
+```bash
+# Listuj dostępnych agentów
+node agent-cli.js discover
+
+# Wysyłanie wiadomości
+node agent-cli.js send <agent_id> "Treść wiadomości" 
+
+# Sprawdzanie wiadomości
+node agent-cli.js messages
+
+# Monitorowanie nowych wiadomości
+node agent-cli.js watch
+```
+
+## Integracja z modelami AI
+
+### Claude Code
 
 ```javascript
 // claude-integration.js
-const a2a = require('a2a-protocol');
+const agentApi = require('./agent-api');
 
-// Create agent with UUID from Claude
-const agent = a2a.createAgent({
-  name: 'ClaudeAgent',
-  id: process.env.CLAUDE_UUID || '30D8C3EB-D0D2-4AA0-B911-D60F866E1E2D',
-  capabilities: ['nlp', 'text_generation', 'code_analysis']
-});
+// Wygeneruj UUID
+const CLAUDE_UUID = "574A8FCD-8FB4-4DEC-A26F-0B9ACFDA5A12"; // lub użyj uuidgen w terminalu
 
-// Process messages and potentially respond
-const messages = agent.receiveMessages();
-console.log(`Claude received ${messages.length} messages`);
+// Utwórz kartę agenta
+const fs = require('fs');
+const cardPath = './ClaudeAgentCard.json';
+const cardContent = {
+  name: "ClaudeTestingAgent",
+  version: "1.0.0",
+  id: CLAUDE_UUID,
+  description: "Claude agent for testing protocol",
+  capabilities: [
+    "protocol_testing",
+    "code_review",
+    "bug_reporting"
+  ],
+  apis: {
+    message_endpoint: "/tmp/quantum-scout/agents/messages/",
+    discovery_endpoint: "/tmp/quantum-scout/agents/discovery/"
+  },
+  author: "Claude",
+  created_at: new Date().toISOString()
+};
+fs.writeFileSync(cardPath, JSON.stringify(cardContent, null, 2));
+
+// Publikuj możliwości
+agentApi.publishCapabilities(cardPath);
+
+// Sprawdź wiadomości
+const messages = agentApi.receiveMessages();
+console.log(`Otrzymano ${messages.length} wiadomości`);
 ```
 
-### Running with OpenAI Assistants
-
-```javascript
-// openai-integration.js
-const a2a = require('a2a-protocol');
-const { OpenAI } = require('openai');
-
-// Initialize the OpenAI client
-const openai = new OpenAI();
-
-// Create agent
-const agent = a2a.createAgent({
-  name: 'OpenAIAgent',
-  capabilities: ['gpt4', 'coding', 'research']
-});
-
-// Process messages using OpenAI
-async function processMessages() {
-  const messages = agent.receiveMessages();
-  
-  for (const msg of messages) {
-    // Process with OpenAI
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4",
-      messages: [
-        {role: "system", content: "You are an agent in a multi-agent system."},
-        {role: "user", content: JSON.stringify(msg.content)}
-      ]
-    });
-    
-    // Send response
-    agent.respondToMessage(msg, {
-      text: completion.choices[0].message.content,
-      processed_by: 'gpt-4'
-    });
-  }
-}
-```
-
-## Advanced Usage
-
-### Custom Message Storage
-
-By default, A2A Protocol uses the filesystem for message storage. You can configure a custom directory:
-
-```javascript
-// Configure custom storage location
-a2a.configure('/path/to/custom/storage');
-```
-
-### Creating Task Agents
-
-```javascript
-// task-agent.js
-const a2a = require('a2a-protocol');
-
-const agent = a2a.createAgent({
-  name: 'TaskAgent',
-  capabilities: ['task_execution', 'data_processing']
-});
-
-async function executeTask(task) {
-  console.log(`Executing task: ${task.type}`);
-  // Task implementation here
-  return { status: 'success', result: `Task completed at ${new Date()}` };
-}
-
-// Main loop
-async function run() {
-  while (true) {
-    const messages = agent.receiveMessages();
-    
-    for (const msg of messages) {
-      if (msg.content.task) {
-        const result = await executeTask(msg.content.task);
-        agent.respondToMessage(msg, { result });
-      }
-    }
-    
-    // Wait before checking again
-    await new Promise(resolve => setTimeout(resolve, 5000));
-  }
-}
-
-run().catch(console.error);
-```
-
-## Contributing
-
-Contributions are welcome! Feel free to submit issues and pull requests.
-
-## License
+## Licencja
 
 MIT
