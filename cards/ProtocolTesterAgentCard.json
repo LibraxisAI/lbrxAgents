@@ -8,8 +8,8 @@
     "security_validation"
   ],
   "apis": {
-    "message_endpoint": "/tmp/quantum-scout/agents/messages/",
-    "discovery_endpoint": "/tmp/quantum-scout/agents/discovery/"
+    "message_endpoint": "/Users/maciejgad/LIBRAXIS/Repos/lbrxAgents/.a2a/messages",
+    "discovery_endpoint": "/Users/maciejgad/LIBRAXIS/Repos/lbrxAgents/.a2a/discovery"
   },
   "author": "Claude",
   "created_at": "2025-04-19T17:45:16.788Z"

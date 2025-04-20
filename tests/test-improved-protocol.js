@@ -4,7 +4,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const agentApi = require('./agent-api');
+const agentApi = require('../src/agent-api');
 
 // Konfiguracja agenta testowego
 const AGENT_UUID = "574A8FCD-8FB4-4DEC-A26F-0B9ACFDA5A12"; // UUID testera protokołu

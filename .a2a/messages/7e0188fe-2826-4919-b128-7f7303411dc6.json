@@ -1,0 +1,26 @@
+{
+  "message_id": "7e0188fe-2826-4919-b128-7f7303411dc6",
+  "sender_id": "5E915DB9-F71E-42E2-AD77-BC26AA522A57",
+  "sender_name": "ClaudeProtocolTester",
+  "target_id": "1edb1b8d-a695-4b2e-aa93-2a427251e206",
+  "timestamp": "2025-04-20T05:28:20.637Z",
+  "message_type": "announcement",
+  "content": {
+    "text": "Agent ClaudeProtocolTester (5E915DB9-F71E-42E2-AD77-BC26AA522A57) has joined the system.",
+    "announcement": true,
+    "agent_details": {
+      "name": "ClaudeProtocolTester",
+      "id": "5E915DB9-F71E-42E2-AD77-BC26AA522A57",
+      "description": "Agent Claude do testowania protokołu lbrxAgents w warunkach rzeczywistych",
+      "capabilities": [
+        "protocol_testing",
+        "message_handling",
+        "error_detection",
+        "performance_analysis",
+        "security_validation"
+      ]
+    }
+  },
+  "capabilities_required": [],
+  "protocol_version": "1.0.0"
+}

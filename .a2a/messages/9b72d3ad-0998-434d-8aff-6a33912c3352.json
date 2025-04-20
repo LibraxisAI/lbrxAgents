@@ -1,0 +1,26 @@
+{
+  "message_id": "9b72d3ad-0998-434d-8aff-6a33912c3352",
+  "sender_id": "C5841F7B-AE9C-4C73-B1D1-34A9CFD540A6",
+  "sender_name": "QuantumScoutAgent",
+  "target_id": "1edb1b8d-a695-4b2e-aa93-2a427251e206",
+  "timestamp": "2025-04-20T05:44:22.459Z",
+  "message_type": "announcement",
+  "content": {
+    "text": "Agent QuantumScoutAgent (C5841F7B-AE9C-4C73-B1D1-34A9CFD540A6) has joined the system.",
+    "announcement": true,
+    "agent_details": {
+      "name": "QuantumScoutAgent",
+      "id": "C5841F7B-AE9C-4C73-B1D1-34A9CFD540A6",
+      "description": "Agent for QuantumScout project refactoring",
+      "capabilities": [
+        "architecture_design",
+        "code_refactoring",
+        "ui_components",
+        "api_integration",
+        "testing"
+      ]
+    }
+  },
+  "capabilities_required": [],
+  "protocol_version": "1.0.0"
+}

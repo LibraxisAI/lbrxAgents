@@ -5,7 +5,7 @@
  * that can communicate with each other using the A2A protocol.
  */
 
-const a2a = require('../index');
+const a2a = require('../src/index');
 const path = require('path');
 const fs = require('fs');
 

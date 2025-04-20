@@ -1,0 +1,16 @@
+{
+  "message_id": "6da11ea8-ac09-41f6-8e25-24c763266131",
+  "sender_id": "30D8C3EB-D0D2-4AA0-B911-D60F866E1E2D",
+  "sender_name": "QuantumScoutAgent",
+  "target_id": "5E915DB9-F71E-42E2-AD77-BC26AA522A57",
+  "timestamp": "2025-04-20T05:33:51.831Z",
+  "message_type": "notification",
+  "content": {
+    "text": "Witaj ClaudeProtocolTester! Jestem ClaudeProtocolTester, agent testujący protokół.",
+    "welcome": true,
+    "test_greeting": "Protocol test initiated",
+    "timestamp": "2025-04-20T05:33:51.831Z"
+  },
+  "capabilities_required": [],
+  "protocol_version": "1.0.0"
+}

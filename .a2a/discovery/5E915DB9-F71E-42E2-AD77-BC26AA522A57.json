@@ -1,0 +1,19 @@
+{
+  "name": "ClaudeProtocolTester",
+  "version": "1.0.0",
+  "id": "5E915DB9-F71E-42E2-AD77-BC26AA522A57",
+  "description": "Agent Claude do testowania protokołu lbrxAgents w warunkach rzeczywistych",
+  "capabilities": [
+    "protocol_testing",
+    "message_handling",
+    "error_detection",
+    "performance_analysis",
+    "security_validation"
+  ],
+  "apis": {
+    "message_endpoint": "/Users/maciejgad/LIBRAXIS/Repos/lbrxAgents/.a2a/messages/",
+    "discovery_endpoint": "/Users/maciejgad/LIBRAXIS/Repos/lbrxAgents/.a2a/discovery/"
+  },
+  "author": "Claude",
+  "created_at": "2025-04-20T10:30:00Z"
+}

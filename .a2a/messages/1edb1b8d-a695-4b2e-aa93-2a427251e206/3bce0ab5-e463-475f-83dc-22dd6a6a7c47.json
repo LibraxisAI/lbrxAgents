@@ -1,0 +1,16 @@
+{
+  "message_id": "3bce0ab5-e463-475f-83dc-22dd6a6a7c47",
+  "sender_id": "30D8C3EB-D0D2-4AA0-B911-D60F866E1E2D",
+  "sender_name": "QuantumScoutAgent",
+  "target_id": "1edb1b8d-a695-4b2e-aa93-2a427251e206",
+  "timestamp": "2025-04-20T05:33:48.809Z",
+  "message_type": "notification",
+  "content": {
+    "text": "ClaudeProtocolTester dołączył do systemu i jest gotowy do testowania protokołu.",
+    "greeting": true,
+    "protocol_version": "1.0.0",
+    "timestamp": "2025-04-20T05:33:48.809Z"
+  },
+  "capabilities_required": [],
+  "protocol_version": "1.0.0"
+}

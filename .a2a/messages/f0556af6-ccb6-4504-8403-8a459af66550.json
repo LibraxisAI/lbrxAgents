@@ -1,0 +1,15 @@
+{
+  "message_id": "f0556af6-ccb6-4504-8403-8a459af66550",
+  "sender_id": "30D8C3EB-D0D2-4AA0-B911-D60F866E1E2D",
+  "sender_name": "QuantumScoutAgent",
+  "target_id": "30D8C3EB-D0D2-4AA0-B911-D60F866E1E2D",
+  "timestamp": "2025-04-20T05:34:37.209Z",
+  "message_type": "response",
+  "content": {
+    "text": "Powiadomienie o nowym agencie przyjęte",
+    "status": "acknowledged",
+    "timestamp": "2025-04-20T05:34:37.209Z"
+  },
+  "capabilities_required": [],
+  "protocol_version": "1.0.0"
+}

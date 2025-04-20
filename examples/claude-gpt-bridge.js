@@ -10,7 +10,7 @@
  * 3. Run this bridge to facilitate communication
  */
 
-const a2a = require('../index');
+const a2a = require('../src/index');
 const fs = require('fs');
 const path = require('path');
 

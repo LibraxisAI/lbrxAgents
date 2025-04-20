@@ -19,7 +19,7 @@ let MESSAGES_PATH = path.join(BASE_PATH, 'messages');
 let DISCOVERY_PATH = path.join(BASE_PATH, 'discovery');
 let STATUS_PATH = path.join(BASE_PATH, 'status');
 let ORCHESTRATOR_PATH = path.join(BASE_PATH, 'orchestrator');
-let AGENT_CARD_PATH = path.join(__dirname, '..', 'cards', 'AgentCard.json');
+let AGENT_CARD_PATH = path.join(PROJECT_ROOT, 'lbrxAgents', 'cards', 'AgentCard.json');
 
 // Agent state tracking
 let activeAgents = new Map();

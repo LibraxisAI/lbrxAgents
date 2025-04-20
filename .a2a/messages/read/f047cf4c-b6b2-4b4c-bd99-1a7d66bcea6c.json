@@ -1,0 +1,16 @@
+{
+  "message_id": "f047cf4c-b6b2-4b4c-bd99-1a7d66bcea6c",
+  "sender_id": "5E915DB9-F71E-42E2-AD77-BC26AA522A57",
+  "sender_name": "ClaudeProtocolTester",
+  "target_id": "30D8C3EB-D0D2-4AA0-B911-D60F866E1E2D",
+  "timestamp": "2025-04-20T05:32:57.207Z",
+  "message_type": "control",
+  "content": {
+    "text": "Proszę o zakończenie pętli ogłoszeń. Wygląda na to, że nie zostało wygenerowane unikalne UUID - użyto domyślnego.",
+    "control_command": "exit_loop",
+    "emergency": true,
+    "debug_info": "Prawdopodobnie problem z UUID - użyto przykładowego UUID bez zmiany go na unikalny z uuidgen"
+  },
+  "capabilities_required": [],
+  "protocol_version": "1.0.0"
+}

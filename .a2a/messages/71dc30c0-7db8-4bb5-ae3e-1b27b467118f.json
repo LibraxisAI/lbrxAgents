@@ -1,0 +1,19 @@
+{
+  "message_id": "71dc30c0-7db8-4bb5-ae3e-1b27b467118f",
+  "sender_id": "30D8C3EB-D0D2-4AA0-B911-D60F866E1E2D",
+  "sender_name": "QuantumScoutAgent",
+  "target_id": "30D8C3EB-D0D2-4AA0-B911-D60F866E1E2D",
+  "timestamp": "2025-04-20T05:26:12.256Z",
+  "message_type": "response",
+  "content": {
+    "task_result": "completed",
+    "execution_time": 123,
+    "output": {
+      "status": "success",
+      "details": "Test task executed successfully"
+    },
+    "timestamp": "2025-04-20T05:26:12.256Z"
+  },
+  "capabilities_required": [],
+  "protocol_version": "1.0.0"
+}

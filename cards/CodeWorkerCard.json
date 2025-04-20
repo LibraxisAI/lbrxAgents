@@ -1,0 +1,16 @@
+{
+  "name": "CodeWorker",
+  "version": "1.0.0",
+  "id": "5c94cb1d-2361-49ad-ae8f-32f59abc1be4",
+  "description": "Worker agent that handles: code_generation, code_review",
+  "capabilities": [
+    "code_generation",
+    "code_review"
+  ],
+  "apis": {
+    "message_endpoint": "/Users/maciejgad/LIBRAXIS/Repos/lbrxAgents/.a2a/messages",
+    "discovery_endpoint": "/Users/maciejgad/LIBRAXIS/Repos/lbrxAgents/.a2a/discovery"
+  },
+  "author": "CodeWorker",
+  "created_at": "2025-04-20T05:18:32.039Z"
+}

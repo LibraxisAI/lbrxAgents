@@ -1,0 +1,23 @@
+{
+  "message_id": "f02cfdb6-8390-4e15-ab66-a9f57b860244",
+  "sender_id": "30D8C3EB-D0D2-4AA0-B911-D60F866E1E2D",
+  "sender_name": "QuantumScoutAgent",
+  "target_id": "30D8C3EB-D0D2-4AA0-B911-D60F866E1E2D",
+  "timestamp": "2025-04-20T05:26:11.251Z",
+  "message_type": "announcement",
+  "content": {
+    "text": "Agent AgentAlpha (1edb1b8d-a695-4b2e-aa93-2a427251e206) has joined the system.",
+    "announcement": true,
+    "agent_details": {
+      "name": "AgentAlpha",
+      "id": "1edb1b8d-a695-4b2e-aa93-2a427251e206",
+      "description": "Test agent with orchestration capabilities",
+      "capabilities": [
+        "coordination",
+        "testing"
+      ]
+    }
+  },
+  "capabilities_required": [],
+  "protocol_version": "1.0.0"
+}

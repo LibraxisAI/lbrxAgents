@@ -1,0 +1,16 @@
+{
+  "name": "DataWorker",
+  "version": "1.0.0",
+  "id": "4fce3842-c3c7-48a0-b8f9-316cc3814bee",
+  "description": "Worker agent that handles: data_processing, analytics",
+  "capabilities": [
+    "data_processing",
+    "analytics"
+  ],
+  "apis": {
+    "message_endpoint": "/Users/maciejgad/LIBRAXIS/Repos/lbrxAgents/.a2a/messages",
+    "discovery_endpoint": "/Users/maciejgad/LIBRAXIS/Repos/lbrxAgents/.a2a/discovery"
+  },
+  "author": "DataWorker",
+  "created_at": "2025-04-20T05:18:32.038Z"
+}

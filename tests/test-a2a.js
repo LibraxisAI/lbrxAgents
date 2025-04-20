@@ -7,7 +7,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const agentApi = require('./agent-api');
+const agentApi = require('../src/agent-api');
 
 // Create a test agent to communicate with
 const TEST_AGENT_ID = '44F89B1C-907D-4120-9C13-B19F1F38F801';

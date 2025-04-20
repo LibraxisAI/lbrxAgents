@@ -1,5 +1,5 @@
 // Test script for A2A protocol
-const agentApi = require('./agent-api.js');
+const agentApi = require('../src/agent-api.js');
 const fs = require('fs');
 
 // Load our agent card
