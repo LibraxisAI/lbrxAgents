@@ -43,5 +43,8 @@
     "examples",
     "LICENSE",
     "README.md"
-  ]
+  ],
+  "dependencies": {
+    "openai": "^4.95.1"
+  }
 }
