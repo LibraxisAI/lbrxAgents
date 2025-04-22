@@ -1,0 +1,19 @@
+{
+  "name": "ClaudeAgent",
+  "version": "{{version}}",
+  "id": "{{unique_id}}",
+  "description": "Claude agent for {{task_description}}",
+  "capabilities": [
+    "{{capability_1}}",
+    "{{capability_2}}",
+    "{{capability_3}}",
+    "{{capability_4}}",
+    "{{capability_5}}"
+  ],
+  "apis": {
+    "message_endpoint": "{{message_endpoint}}",
+    "discovery_endpoint": "{{discovery_endpoint}}"
+  },
+  "author": "Claude",
+  "created_at": "{{created_at}}"
+}
