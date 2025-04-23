@@ -164,9 +164,11 @@ function sendMessage(targetAgentId, messageContent, messageType = 'query') {
  * @returns {Array} - Array of message objects
  */
 function receiveMessages(markAsRead = true, options = {}) {
+  // console.log(`[receiveMessages DEBUG (RETRY)] Function called. markAsRead=${markAsRead}`);
   if (!ensureDirsExist()) return [];
   
   const agentInfo = getAgentInfo();
+  // console.log(`[receiveMessages DEBUG (RETRY)] agentInfo obtained: ${agentInfo ? agentInfo.id : 'null'}`);
   if (!agentInfo) return [];
   
   try {
@@ -178,11 +180,13 @@ function receiveMessages(markAsRead = true, options = {}) {
     
     // Check agent-specific directory first
     const agentDir = path.join(MESSAGES_PATH, agentInfo.id);
+    // console.log(`[receiveMessages DEBUG (RETRY)] Checking agent directory: ${agentDir}`);
     if (!fs.existsSync(agentDir)) fs.mkdirSync(agentDir, { recursive: true });
     
     const messageFiles = fs.readdirSync(agentDir)
       .filter(file => file.endsWith('.json'))
       .map(file => path.join(agentDir, file));
+    // console.log(`[receiveMessages DEBUG (RETRY)] Found ${messageFiles.length} files in agent dir:`, messageFiles);
     
     // Also check main directory
     const allFiles = fs.readdirSync(MESSAGES_PATH)
@@ -235,13 +239,23 @@ function receiveMessages(markAsRead = true, options = {}) {
         const readDir = path.join(MESSAGES_PATH, 'read');
         if (!fs.existsSync(readDir)) fs.mkdirSync(readDir, { recursive: true });
         
-        const sourcePath = path.join(agentDir, `${message.message_id}.json`);
+        const agentSourcePath = path.join(agentDir, `${message.message_id}.json`);
+        const mainSourcePath = path.join(MESSAGES_PATH, `${message.message_id}.json`);
         const destPath = path.join(readDir, `${message.message_id}.json`);
         
         try {
-          fs.renameSync(sourcePath, destPath);
+          if (fs.existsSync(agentSourcePath)) {
+             fs.renameSync(agentSourcePath, destPath);
+          } else if (fs.existsSync(mainSourcePath)) {
+             fs.renameSync(mainSourcePath, destPath);
+          }
+          
+          if (fs.existsSync(mainSourcePath) && path.dirname(destPath) !== path.dirname(mainSourcePath)) {
+              fs.unlinkSync(mainSourcePath); 
+          }
+          
         } catch (e) {
-          console.warn(`Failed to mark message as read: ${message.message_id}`);
+          console.warn(`Failed to mark message as read: ${message.message_id}, Error: ${e.message}`);
         }
       });
     }
@@ -541,7 +555,7 @@ function discoverAgents(options = {}) {
       }
     });
     
-    return enrichedAgents;
+    return agents;
   } catch (error) {
     console.error('Failed to discover agents:', error);
     return [];
