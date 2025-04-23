@@ -134,3 +134,9 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Generated A2A Protocol data
+.a2a/
+
+# Generated Agent Cards (e.g., DominikCard.json)
+*Card.json
