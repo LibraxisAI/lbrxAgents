@@ -28,6 +28,7 @@ let lastAgentPings = new Map();
 // Process control
 let shutdownRequested = false;
 let shutdownHandlers = [];
+let processHandlersRegistered = false;
 
 // Check for custom configuration
 const CONFIG_FILE = path.join(process.cwd(), '.a2aconfig');
@@ -668,8 +669,12 @@ function logAgentActivity(action, data) {
  */
 function enableShutdownHandlers() {
   // Only add handlers once
-  if (shutdownHandlers.length > 0) return;
-  
+  if (processHandlersRegistered) { 
+      // console.log('[enableShutdownHandlers DEBUG] Process handlers already registered, skipping.');
+      return;
+  }
+  // console.log('[enableShutdownHandlers DEBUG] Attempting to register process signal handlers...'); 
+
   const handler = (signal) => {
     console.log(`\nReceived ${signal}. Shutting down gracefully...`);
     shutdownRequested = true;
@@ -696,6 +701,9 @@ function enableShutdownHandlers() {
     console.error('Uncaught exception:', err);
     handler('uncaughtException');
   });
+
+  // console.log('[enableShutdownHandlers DEBUG] Process signal handlers hopefully registered.');
+  processHandlersRegistered = true; 
 }
 
 /**
@@ -729,10 +737,15 @@ function requestShutdown() {
  * @returns {boolean} - Success status
  */
 function deregisterAgent(agentId) {
+  // console.log(`[deregisterAgent DEBUG] Called with agentId: ${agentId}`); 
   if (!agentId) {
     const agentInfo = getAgentInfo();
-    if (!agentInfo) return false;
+    if (!agentInfo) {
+        // console.log('[deregisterAgent DEBUG] No agentInfo found, exiting.'); 
+        return false;
+    }
     agentId = agentInfo.id;
+    // console.log(`[deregisterAgent DEBUG] Obtained agentId from getAgentInfo: ${agentId}`); 
   }
   
   try {
@@ -744,8 +757,12 @@ function deregisterAgent(agentId) {
     
     // Remove from discovery
     const discoveryPath = path.join(DISCOVERY_PATH, `${agentId}.json`);
+    // console.log(`[deregisterAgent DEBUG] Attempting to remove discovery file: ${discoveryPath}`); 
     if (fs.existsSync(discoveryPath)) {
       fs.unlinkSync(discoveryPath);
+      // console.log(`[deregisterAgent DEBUG] Successfully removed: ${discoveryPath}`); 
+    } else {
+      // console.log(`[deregisterAgent DEBUG] Discovery file not found: ${discoveryPath}`); 
     }
     
     // Remove from in-memory cache
@@ -762,9 +779,11 @@ function deregisterAgent(agentId) {
       }, 'notification');
     }
     
+    // console.log(`[deregisterAgent DEBUG] Deregistration completed for ${agentId}`); 
     return true;
   } catch (error) {
-    console.error('Failed to deregister agent:', error);
+    // console.error(`[deregisterAgent DEBUG] Failed to deregister agent ${agentId}:`, error); 
+    console.error(`Failed to deregister agent ${agentId}:`, error); // Revert to original error log
     return false;
   }
 }
@@ -796,17 +815,19 @@ function getOrchestratorStatus() {
 }
 
 // Register shutdown handler to deregister agent on exit
-onShutdown(() => {
+onShutdown(async () => { 
+  // console.log('[onShutdown DEBUG] Shutdown handler triggered.'); 
   try {
     const agentInfo = getAgentInfo();
     if (agentInfo) {
       console.log(`Deregistering agent ${agentInfo.name} (${agentInfo.id}) on shutdown...`);
-      deregisterAgent(agentInfo.id);
+      await deregisterAgent(agentInfo.id); 
+    } else {
+      // console.log('[onShutdown DEBUG] Could not get agentInfo during shutdown.'); 
     }
   } catch (e) {
     console.error('Error during shutdown deregistration:', e);
   }
-  return Promise.resolve();
 });
 
 module.exports = {
