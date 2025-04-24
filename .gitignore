@@ -134,17 +134,9 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-<<<<<<< Updated upstream
 
 # Generated A2A Protocol data
 .a2a/
-
-# Generated Agent Cards (e.g., DominikCard.json)
-*Card.json
-=======
 /.a2a/discovery
 /.a2a/messages/read
-/examples
-/examples/agents
 /tmp
->>>>>>> Stashed changes
