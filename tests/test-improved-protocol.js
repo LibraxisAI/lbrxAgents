@@ -5,11 +5,23 @@
 const fs = require('fs');
 const path = require('path');
 const agentApi = require('../src/agent-api');
+const crypto = require('crypto');
+const { execSync } = require('child_process');
 
 // Konfiguracja agenta testowego
-const AGENT_UUID = "574A8FCD-8FB4-4DEC-A26F-0B9ACFDA5A12"; // UUID testera protokołu
 const AGENT_NAME = "ProtocolTesterAgent";
 const AGENT_DESCRIPTION = "Agent testujący bezpieczeństwo protokołu A2A";
+
+// Zasadą jest, że agent ma identyfikator sesji terminala po uuidgen
+function getSessionUUID() {
+  try {
+    return execSync('uuidgen').toString().trim();
+  } catch (e) {
+    // fallback na losowy uuid v4 jeśli uuidgen niedostępny
+    return require('crypto').randomUUID();
+  }
+}
+const AGENT_UUID = getSessionUUID();
 
 // Utworzenie karty agenta testowego
 function setupTestAgent() {

@@ -46,12 +46,19 @@ async function handleMessage(message) {
       
     case 'test':
       console.log("Otrzymano wiadomość testową");
-      return {
+      console.log("Szczegóły wiadomości testowej:", JSON.stringify(message.content));
+      const testResponse = {
         text: "Test otrzymany pomyślnie",
         test_received: true,
         status: "success",
+        echo: message.content,
         timestamp: new Date().toISOString()
       };
+      console.log("Wysyłam odpowiedź na test:", JSON.stringify(testResponse));
+      // Bezpośrednia odpowiedź na wiadomość testową
+      agentApi.respondToMessage(message, testResponse);
+      // Zwracamy null, żeby nie wysłać podwójnej odpowiedzi
+      return null;
       
     case 'notification':
       console.log("Otrzymano powiadomienie");

@@ -40,11 +40,23 @@ npm install lbrxagents
 
 ### Running an Agent
 
-```bash
-# 1. Copy the agent template
-cp templates/agent-template.js my-agent.js
+#### Automated Agent Creation (Recommended)
 
-# 2. Edit agent data in my-agent.js
+```bash
+# 1. Use the automated agent creation script
+node scripts/initialize-agent.js MyAgent "My agent description" "capability1,capability2" 
+
+# 2. Run the generated agent
+node examples/agents/myagent-agent.js
+```
+
+#### Manual Method
+
+```bash
+# 1. Copy the enhanced agent template
+cp templates/enhanced-agent-template.js my-agent.js
+
+# 2. Edit agent data in my-agent.js (UUID, name, description, capabilities)
 
 # 3. Run the agent
 node my-agent.js
@@ -73,11 +85,14 @@ lbrxAgents/
 │   └── cli.js             # CLI utilities with session monitoring
 │
 ├── templates/             # Agent templates
-│   ├── agent-template.js  # Basic agent template with session logging
+│   ├── agent-template.js  # Basic agent template
+│   ├── enhanced-agent-template.js # Enhanced agent template with safety features
 │   └── OrchestratorTemplate.js # Orchestrator template
 │
 ├── scripts/               # Helper scripts
 │   ├── create-agent.sh    # Agent creation script
+│   ├── initialize-agent.js # Enhanced agent initialization script
+│   ├── cleanup-protocol.js # Protocol cleanup and maintenance script
 │   ├── check-messages.sh  # Message checking script
 │   ├── list-agents.sh     # Agent listing script
 │   └── send-message.sh    # Message sending script
@@ -89,7 +104,9 @@ lbrxAgents/
 │   │   ├── USAGE.md       # Usage instructions
 │   │   ├── QUICKSTART.md  # Getting started guide
 │   │   ├── TROUBLESHOOTING.md # Troubleshooting guide
-│   │   └── MONITORING.md  # Session monitoring guide (EN)
+│   │   ├── MONITORING.md  # Session monitoring guide
+│   │   ├── AGENT_INSTRUCTIONS.md # Instructions for AI agents (EN)
+│   │   └── PROTOCOL_IMPROVEMENTS.md # Protocol enhancement documentation
 │   │
 │   ├── pl/                # Polish documentation
 │   │   ├── README.md      # Main documentation (Polish)
@@ -106,15 +123,17 @@ lbrxAgents/
 │   ├── monitoring/        # Session monitoring documentation
 │   │   └── README.md      # Session monitoring overview
 │   │
-│   └── instructions/      # Agent instructions examples
+│   └── instructions/      # Agent instructions templates
 │       ├── agent-instructions.md   # Example agent instructions
-│       └── instructions-example.md # Template for instructions
+│       ├── instructions-example.md # Template for instructions
+│       └── AGENT_INSTRUCTIONS.md   # Instructions for AI agents (PL)
 │
 ├── openai-throttle.js     # OpenAI token throttling plugin
 │
 ├── cards/                 # Agent cards
 │   ├── AgentCard.json     # Generic agent card
-│   └── DemoCard.json      # Demo agent card
+│   ├── DemoCard.json      # Demo agent card
+│   └── ProtocolTesterAgentCard.json # Test agent card
 │
 ├── examples/              # Usage examples
 │   ├── multi-agent-system.js # Multiple agents example
@@ -124,7 +143,8 @@ lbrxAgents/
 │   │
 │   └── agents/            # Example agent implementations
 │       ├── Demo-agent.js     # Demo agent
-│       └── protocol-handover.js # Protocol handover agent
+│       ├── protocol-handover.js # Protocol handover agent
+│       └── testagent-agent.js # Protocol test agent
 │
 └── tests/                 # Testing
     ├── test-a2a.js        # Basic protocol tests
@@ -139,6 +159,10 @@ Full documentation is available in the `docs` directory:
 - [English Documentation](./docs/en/README.md)
 - [Polish Documentation](./docs/pl/README.md)
 - [Quick Start Guide](./docs/en/QUICKSTART.md)
+
+### AI Agent Integration
+- [English Instructions for AI Agents](./docs/en/AGENT_INSTRUCTIONS.md) - Guidelines for AI agents using the A2A protocol
+- [Polish Instructions for AI Agents](./docs/instructions/AGENT_INSTRUCTIONS.md) - Polish version of the guidelines
 
 ### Session Monitoring
 - [Session Monitoring (EN)](./docs/en/MONITORING.md)
@@ -222,6 +246,30 @@ Where:
 - **SESSION_ID**: Unique session identifier (UUID)
 
 This allows multiple instances of the same agent type to run simultaneously while maintaining clear separation between sessions.
+
+## Protocol Safety Measures
+
+The protocol includes important safety features to prevent issues in multi-agent environments:
+
+### 1. UUID Management
+- Each agent must have a unique UUID
+- The `initialize-agent.js` script generates secure UUIDs
+- UUID conflicts are detected and prevented
+
+### 2. Runtime Limitation
+- All agents must include maximum runtime settings
+- Prevents infinite loops and resource exhaustion
+- Default timeout: 60 seconds (configurable)
+
+### 3. Proper Deregistration
+- Agents must deregister upon completion
+- Handles unexpected termination via signal handlers
+- Prevents orphaned agent registrations
+
+### 4. Base Path Configuration
+- Explicit path setting via `agentApi.setBasePath()`
+- Ensures consistent file system access across agents
+- Prevents path resolution issues
 
 ## License
 

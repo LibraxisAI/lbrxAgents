@@ -99,6 +99,24 @@ async function runBasicTest() {
     
     // Sprawdź odpowiedzi
     const messages = agentApi.receiveMessages(false);
+    
+    // Sprawdź wszystkie wiadomości pod kątem odpowiedzi testowej
+    for (const msg of messages) {
+      // Szczególny przypadek: sprawdź czy to odpowiedź na naszą wiadomość testową
+      if (msg.message_type === 'response' && msg.content && msg.content.test_received) {
+        console.log(`Otrzymano potwierdzenie testu od ${msg.sender_name} (${msg.sender_id})`);
+        console.log(`- Typ: ${msg.message_type}`);
+        console.log(`- Treść: ${JSON.stringify(msg.content)}`);
+        console.log('TEST SUKCES: Otrzymano potwierdzenie testu');
+        responseReceived = true;
+        break;
+      }
+    }
+    
+    // Jeśli już znaleźliśmy odpowiedź, przerwij pętlę
+    if (responseReceived) break;
+    
+    // Filtruj tylko odpowiedzi od docelowego agenta dla informacji
     const responses = messages.filter(msg => msg.sender_id === targetAgent.id);
     
     if (responses.length > 0) {
@@ -107,16 +125,7 @@ async function runBasicTest() {
       for (const response of responses) {
         console.log(`- Typ: ${response.message_type}`);
         console.log(`- Treść: ${JSON.stringify(response.content)}`);
-        
-        // Sprawdź czy to odpowiedź na naszą wiadomość testową
-        if (response.content && response.content.test_received) {
-          console.log('TEST SUKCES: Otrzymano potwierdzenie testu');
-          responseReceived = true;
-        }
       }
-      
-      // Jeśli otrzymano odpowiedź, zakończ czekanie
-      if (responseReceived) break;
     }
   }
   

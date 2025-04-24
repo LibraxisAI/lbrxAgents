@@ -8,10 +8,13 @@
 const fs = require('fs');
 const path = require('path');
 const agentApi = require('../src/agent-api');
+const crypto = require('crypto');
 
 // Create a test agent to communicate with
-const TEST_AGENT_ID = '44F89B1C-907D-4120-9C13-B19F1F38F801';
 const TEST_AGENT_NAME = 'ArchitectAgent';
+
+// Zamiast hardkodować ID, generujemy je deterministycznie na podstawie nazwy agenta (lub losowo jeśli trzeba)
+const TEST_AGENT_ID = crypto.createHash('sha256').update(TEST_AGENT_NAME).digest('hex').slice(0, 32);
 
 // Setup test agent
 function setupTestAgent() {

@@ -1,56 +1,15 @@
 {
   "active_agents": {
-    "30D8C3EB-D0D2-4AA0-B911-D60F866E1E2D": {
-      "name": "QuantumScoutAgent",
+    "B8C78394-8492-4732-BCF1-24E0BD42F6CC": {
       "status": "active",
-      "last_ping": "2025-04-20T05:40:13.783Z",
-      "capabilities": [
-        "architecture_design",
-        "code_refactoring",
-        "ui_components",
-        "api_integration",
-        "testing"
-      ],
-      "last_update": "2025-04-20T05:40:13.783Z"
+      "last_ping": "2025-04-20T05:55:51.795Z",
+      "last_update": "2025-04-20T05:55:51.795Z"
     },
-    "79269a70-bc57-4829-8e87-39a13a6b5884": {
-      "name": "AgentBeta",
+    "02BB5835-45ED-4E34-A986-44CD535957EC": {
       "status": "active",
-      "last_ping": "2025-04-20T05:34:46.327Z",
-      "capabilities": [
-        "task_execution",
-        "testing"
-      ],
-      "last_update": "2025-04-20T05:34:46.327Z"
-    },
-    "1edb1b8d-a695-4b2e-aa93-2a427251e206": {
-      "name": "AgentAlpha",
-      "status": "active",
-      "last_ping": "2025-04-20T05:34:46.327Z",
-      "capabilities": [
-        "coordination",
-        "testing"
-      ],
-      "last_update": "2025-04-20T05:34:46.327Z"
-    },
-    "5E915DB9-F71E-42E2-AD77-BC26AA522A57": {
-      "name": "ClaudeProtocolTester",
-      "status": "active",
-      "last_ping": "2025-04-20T05:34:46.327Z",
-      "capabilities": [
-        "protocol_testing",
-        "message_handling",
-        "error_detection",
-        "performance_analysis",
-        "security_validation"
-      ],
-      "last_update": "2025-04-20T05:34:46.327Z"
-    },
-    "C5841F7B-AE9C-4C73-B1D1-34A9CFD540A6": {
-      "status": "active",
-      "last_ping": "2025-04-20T05:45:43.867Z",
-      "last_update": "2025-04-20T05:45:43.867Z"
+      "last_ping": "2025-04-20T05:56:00.058Z",
+      "last_update": "2025-04-20T05:56:00.059Z"
     }
   },
-  "last_update": "2025-04-20T05:43:40.243Z"
+  "last_update": "2025-04-20T05:56:32.773Z"
 }
