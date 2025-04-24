@@ -14,14 +14,21 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const agentApi = require('../../src/agent-api');
+const { execSync } = require('child_process');
 
 // ====================================
 // KONFIGURACJA AGENTA - EDYTUJ TUTAJ
 // ====================================
 
-// Wygeneruj UUID używając komendy "uuidgen" w terminalu 
-// i zastąp poniższy przykładowy UUID
-const AGENT_UUID = "AC2A6D8D-7512-46AB-A6DF-0C646C56BDC4";
+// Zamiast hardkodować UUID, generuj go na podstawie uuidgen (identyfikator sesji terminala)
+function getSessionUUID() {
+  try {
+    return execSync('uuidgen').toString().trim();
+  } catch (e) {
+    return crypto.randomUUID();
+  }
+}
+const AGENT_UUID = getSessionUUID();
 
 // Uzupełnij dane agenta
 const AGENT_NAME = "TestAgent";

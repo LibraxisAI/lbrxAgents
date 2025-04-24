@@ -16,8 +16,16 @@ const RECIPIENT_NAME = "QuantumScoutAgent";
 const BASE_PATH = path.join(process.cwd(), '.a2a');
 agentApi.setBasePath(BASE_PATH);
 
-// Claude ID
-const MY_ID = "02BB5835-45ED-4E34-A986-44CD535957EC";
+// Zamiast hardkodować MY_ID, generuj go na podstawie uuidgen (identyfikator sesji terminala)
+const { execSync } = require('child_process');
+function getSessionUUID() {
+  try {
+    return execSync('uuidgen').toString().trim();
+  } catch (e) {
+    return require('crypto').randomUUID();
+  }
+}
+const MY_ID = getSessionUUID();
 const MY_NAME = "ClaudeProtocolTester";
 
 // Treść wiadomości

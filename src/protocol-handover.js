@@ -6,9 +6,19 @@ const fs = require('fs');
 const path = require('path');
 const agentApi = require('./agent-api');
 const crypto = require('crypto');
+const { execSync } = require('child_process');
+
+// Zamiast hardkodować UUID, generuj go na podstawie uuidgen (identyfikator sesji terminala)
+function getSessionUUID() {
+  try {
+    return execSync('uuidgen').toString().trim();
+  } catch (e) {
+    return crypto.randomUUID();
+  }
+}
 
 // Konfiguracja agenta
-const AGENT_UUID = "574A8FCD-8FB4-4DEC-A26F-0B9ACFDA5A12"; // UUID testera protokołu
+const AGENT_UUID = getSessionUUID(); // UUID testera protokołu
 const AGENT_NAME = "ProtocolHandoverAgent";
 const AGENT_DESCRIPTION = "Agent przejmujący prace nad protokołem A2A";
 const AGENT_CAPABILITIES = [
