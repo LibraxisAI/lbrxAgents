@@ -934,7 +934,7 @@
         "hej! przeczytaj dolozona wlasnie dokumentacje w agents/currentProject/docs i wroc do mnie\n",
         "wait for the rest workers. ",
         "can you write comprehensive tests for this part of the work and run it?",
-        "You are an expert full‑stack engineer.\nGoal: Add a coding‑challenge component to a Next.js 15 (App Router) project using React 19 and Tailwind.\nRequirements:\n1. Client‑only Monaco editor (import('@monaco-editor/react')) inside `components/tasks/CodeChallenge.tsx`.\n2. The component receives props:\n   {\n     starterCode: string,\n     tests: string,        // jest tests, mocha or vitest-like\n     language: 'javascript' | 'typescript',\n     taskId: string\n   }\n3. Use the `@types/node` sandbox technique (run code in a Web Worker with `esbuild-wasm`) to execute tests safely in browser.\n4. Show 3 panes:\n   • EDITOR (Monaco)\n   • TEST OUTPUT (console.log + green/red for pass/fail)\n   • INSTRUCTIONS (markdown from parent)\n5. When user clicks “Run tests”, evaluate code + tests, return pass/fail + stdout.\n6. emit `onResult({ passed: boolean, stdout: string })`\n7. Provide minimal Tailwind styling (+dark mode classes).\n8. No external server, everything client‑side.\nReturn:\n • new file `components/tasks/CodeChallenge.tsx`\n • any helper worker / utils files\n\nif needed further clarification - don't hesitate to ask",
+        "You are an expert full‑stack engineer.\nGoal: Add a coding‑challenge component to a Next.js 15 (App Router) project using React 19 and Tailwind.\nRequirements:\n1. Client‑only Monaco editor (import('@monaco-editor/react')) inside `components/tasks/CodeChallenge.tsx`.\n2. The component receives props:\n   {\n     starterCode: string,\n     tests: string,        // jest tests, mocha or vitest-like\n     language: 'javascript' | 'typescript',\n     taskId: string\n   }\n3. Use the `@types/node` sandbox technique (run code in a Web Worker with `esbuild-wasm`) to execute tests safely in browser.\n4. Show 3 panes:\n   • EDITOR (Monaco)\n   • TEST OUTPUT (console.log + green/red for pass/fail)\n   • INSTRUCTIONS (markdown from parent)\n5. When user clicks "Run tests", evaluate code + tests, return pass/fail + stdout.\n6. emit `onResult({ passed: boolean, stdout: string })`\n7. Provide minimal Tailwind styling (+dark mode classes).\n8. No external server, everything client‑side.\nReturn:\n • new file `components/tasks/CodeChallenge.tsx`\n • any helper worker / utils files\n\nif needed further clarification - don't hesitate to ask",
         "/init ",
         "skoczysz na chwile tam? [Error] Failed to load resource: the server responded with a status of 504 () (chat, line 0)\n[Error] Error starting chat:\nSyntaxError: The string did not match the expected pattern.\n(anonymous function)\n    (anonymous function) (9323-f5fe8978f194b4de.js:1:163033)\n    (anonymous function) (page-38e8d4a555239dcc.js:1:11883)",
         "jestes agent \"Jobs\" (Agent2) przeczytaj o swojej roli",
@@ -1057,6 +1057,21 @@
         "--storage=/Users/maciejgad/Codebase/Klaudiusz/claude_memory",
         "--index-type=vector"
       ],
+      "env": {}
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
+      "env": {}
+    },
+    "puppeteer": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-puppeteer"],
+      "env": {}
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-playwright"],
       "env": {}
     }
   },
