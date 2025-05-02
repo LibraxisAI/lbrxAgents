@@ -140,3 +140,9 @@ dist
 /.a2a/discovery
 /.a2a/messages/read
 /tmp
+
+# macOS system files
+.DS_Store
+
+# Memory bank backups (optional)
+memory-bank/**/backups/
