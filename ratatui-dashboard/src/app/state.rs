@@ -15,6 +15,7 @@ pub struct AppState {
     pub logs: VecDeque<String>,
     pub memory_series: Vec<u64>,
     pub semgrep_alerts: Vec<crate::services::SemgrepAlert>,
+    pub show_help: bool,
 }
 
 impl Default for AppState {
@@ -28,6 +29,7 @@ impl Default for AppState {
             logs: VecDeque::with_capacity(500),
             memory_series: Vec::new(),
             semgrep_alerts: Vec::new(),
+            show_help: false,
         }
     }
 }
