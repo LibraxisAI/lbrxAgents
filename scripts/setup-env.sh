@@ -109,6 +109,13 @@ launchctl list | grep -q com.dev.local-snapshot || launchctl load ~/Library/Laun
 echo "📦 Installing Node.js dependencies..."
 npm install
 
+# Ensure Rust toolchain for dashboard
+if ! command -v cargo &>/dev/null; then
+  echo "[setup-env] Installing Rust toolchain via rustup…"
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+  source "$HOME/.cargo/env"
+fi
+
 echo "----------------------------------------------------"
 echo "✅ Ultimate AI Developer Environment setup completed!"
 echo "🔄 Please restart your terminal or run 'source ~/.zshrc' to apply changes."
