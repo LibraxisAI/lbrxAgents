@@ -134,3 +134,16 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Generated A2A Protocol data
+.a2a/
+/.a2a/discovery
+/.a2a/messages/read
+/tmp
+
+# macOS system files
+.DS_Store
+
+# Memory bank backups (optional)
+memory-bank/**/backups/
+CLAUDE.md

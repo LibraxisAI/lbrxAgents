@@ -49,7 +49,7 @@ function createAgent(options = {}) {
   } = options;
   
   // Create agent card
-  const cardPath = path.join(__dirname, '..', 'cards', `${name.replace(/\s+/g, '')}Card.json`);
+  const cardPath = path.join(process.cwd(), 'cards', `${name.replace(/\s+/g, '')}Card.json`);
   const agentCard = {
     name,
     version: "1.0.0",
@@ -57,8 +57,8 @@ function createAgent(options = {}) {
     description,
     capabilities,
     apis: {
-      message_endpoint: "/tmp/a2a-protocol/messages/",
-      discovery_endpoint: "/tmp/a2a-protocol/discovery/"
+      message_endpoint: path.join(process.cwd(), '.a2a', 'messages'),
+      discovery_endpoint: path.join(process.cwd(), '.a2a', 'discovery')
     },
     author: name,
     created_at: new Date().toISOString()

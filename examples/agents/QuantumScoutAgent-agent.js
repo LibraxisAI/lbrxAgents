@@ -4,13 +4,22 @@
 
 const fs = require('fs');
 const path = require('path');
-const agentApi = require('./agent-api');
+const agentApi = require('../../src/agent-api');
+const { execSync } = require('child_process');
 
 // ====================================
 // KONFIGURACJA AGENTA
 // ====================================
 
-const AGENT_UUID = "30D8C3EB-D0D2-4AA0-B911-D60F866E1E2D"; 
+// Zamiast hardkodować UUID, generuj go na podstawie uuidgen (identyfikator sesji terminala)
+function getSessionUUID() {
+  try {
+    return execSync('uuidgen').toString().trim();
+  } catch (e) {
+    return require('crypto').randomUUID();
+  }
+}
+const AGENT_UUID = getSessionUUID();
 const AGENT_NAME = "QuantumScoutAgent";
 const AGENT_DESCRIPTION = "Agent for QuantumScout project refactoring";
 const AGENT_CAPABILITIES = [

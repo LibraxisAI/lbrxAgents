@@ -1,0 +1,22 @@
+{
+  "editor.formatOnSave": true,
+  "editor.linkedEditing": true,
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.guides.bracketPairs": true,
+  "editor.minimap.enabled": false,
+  
+  "cursor.showTabCompletions": true,
+  "cursor.codebase.indexNewFoldersByDefault": true,
+  "cursor.completion.acceptCompletionOnTab": true,
+  "cursor.copilotPlusPlus.enabled": true,
+  "cursor.features.agent.makeEditsInPlace": true,
+  
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  
+  "terminal.integrated.fontFamily": "MesloLGS NF",
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  
+  "cursor.memory.limitFileSize": true,
+  "cursor.memory.maxFileSize": 5
+}

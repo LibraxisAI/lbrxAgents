@@ -10,14 +10,14 @@
 
 const fs = require('fs');
 const path = require('path');
-const agentApi = require('./agent-api');
+const agentApi = require('../../src/agent-api');
 
 // ====================================
 // KONFIGURACJA AGENTA - EDYTUJ TUTAJ
 // ====================================
 
-// Zastąp to swoim wygenerowanym UUID (uruchom 'uuidgen' w terminalu)
-const AGENT_UUID = "B0CC08BB-4B5F-4958-99CD-4BD1EE2C4254"; 
+// Generowanie UUID automatycznie zamiast używania hardkodowanego
+const AGENT_UUID = require('crypto').randomUUID();
 
 // Zastąp to swoimi danymi
 const AGENT_NAME = "Demo";
@@ -156,12 +156,7 @@ async function mainLoop() {
 }
 
 // Uruchom agenta
-if (AGENT_UUID !== "B0CC08BB-4B5F-4958-99CD-4BD1EE2C4254") {
-  mainLoop().catch(err => {
-    console.error("Krytyczny błąd:", err);
-    process.exit(1);
-  });
-} else {
-  console.error("Proszę zaktualizować AGENT_UUID przed uruchomieniem!");
+mainLoop().catch(err => {
+  console.error("Krytyczny błąd:", err);
   process.exit(1);
-}
+});

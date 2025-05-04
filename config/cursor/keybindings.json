@@ -1,0 +1,46 @@
+[
+  {
+    "key": "cmd+k cmd+p",
+    "command": "cursor.promptAction.prompt"
+  },
+  {
+    "key": "shift+cmd+p",
+    "command": "cursor.promptAction.promptAtLine"
+  },
+  {
+    "key": "alt+cmd+p",
+    "command": "cursor.promptAction.promptAtSelection"
+  },
+  {
+    "key": "alt+cmd+e",
+    "command": "cursor.promptAction.editCode"
+  },
+  {
+    "key": "alt+cmd+d",
+    "command": "cursor.promptAction.documentCode"
+  },
+  {
+    "key": "alt+cmd+t",
+    "command": "cursor.promptAction.createTests"
+  },
+  {
+    "key": "alt+cmd+r",
+    "command": "cursor.promptAction.refactor"
+  },
+  {
+    "key": "alt+cmd+f",
+    "command": "cursor.promptAction.fixCode"
+  },
+  {
+    "key": "alt+cmd+c",
+    "command": "cursor.codeActions.findCode"
+  },
+  {
+    "key": "alt+cmd+i",
+    "command": "cursor.codeActions.implementCode"
+  },
+  {
+    "key": "alt+cmd+o",
+    "command": "cursor.codeActions.optimize"
+  }
+] 

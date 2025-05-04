@@ -1,0 +1,3 @@
+{"rule":"commit_format","content":"feature(scope): msg (c) M&K"}
+{"rule":"readme_footer","content":"🤖 Developed with the help of Claude and OpenAI o3"}
+{"rule":"dir_naming","content":"src/utils for tool helpers; templates/ for blueprints"} 

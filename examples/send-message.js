@@ -2,7 +2,7 @@
  * Example: Sending a message to another agent
  */
 
-const agentApi = require('../agent-api');
+const agentApi = require('../src/agent-api');
 
 // 1. Discover available agents
 const agents = agentApi.discoverAgents();

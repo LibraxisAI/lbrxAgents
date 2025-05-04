@@ -1,5 +1,49 @@
 # OpenAI Throttle Plugin for Codex CLI
 
+## Critical update:
+
+### Codex-CLI przechowuje wszystkie ustawienia użytkownika w katalogu domowym, plik:
+```
+      ~/.codex/config.json   (starsza wersja: ~/.config/codex/config.json)
+```
+aby ustawić OpenAI throttle control: 
+        1. Otwórz plik
+        ```zsh
+           nano ~/.codex/config.json
+        ```
+        2. W sekcji dotyczącej OpenAI dopisz (lub zmodyfikuj) podklucz rateLimits, np.:
+```json
+    {
+      "openai": {
+        "apiKey": "sk-…",
+        "model":  "gpt-4o-mini",
+        "rateLimits": {
+          "tokensPerMinute": 28000,   // maks. ile CLI może wysłać w ciągu 60 s
+          "requestsPerMinute": 180    // (opcjonalnie) ile wywołań na minutę
+        }
+      }
+    }
+```
+        3. Zapisz plik i ponownie uruchom codex.
+
+    CLI ma wbudowaną wewnętrzną przepustnicę; gdy znajdzie powyższe klucze, przed każdym wywołaniem czeka tyle, by nie przekroczyć ustawionych progów. Jeżeli sekcji nie ma, CLI
+    zakłada domyślne wartości (⩽ 30 000 TPM), stąd dzisiejszy błąd.
+
+### Alternatywnie (na potrzeby pojedynczej sesji) możesz ustawić zmienne środowiskowe przed wywołaniem codex:
+```zsh
+    export CODEX_TOKENS_PER_MIN=28000
+    export CODEX_REQUESTS_PER_MIN=180
+    codex …
+```
+    …albo przekazać limity flagami (w najnowszej wersji):
+```zsh
+    codex --max-tpm 28000 --max-rpm 180 …
+```
+    To wystarczy, by „przyhamować” zużycie i nie wpadać ponownie w limit 30 000 TPM.
+
+
+> old solution
+```
 This guide explains how to enable a token-based rate limit on OpenAI calls in the Codex CLI.
 
 ## Overview
@@ -69,3 +113,4 @@ When you run any Codex CLI command:
 4. The bucket refills to `OPENAI_TOKEN_LIMIT` every minute.
 
 Now your Codex CLI sessions will respect your token rate limits automatically.
+```
