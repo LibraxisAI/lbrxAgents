@@ -8,8 +8,11 @@
 const fs = require('fs');
 const path = require('path');
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 const agentApi = require('./agent-api');
 =======
+=======
+>>>>>>> Stashed changes
 const os = require('os');
 const agentApi = require('../src/agent-api');
 const crypto = require('crypto');
@@ -20,7 +23,10 @@ const TEST_AGENT_ID = '44F89B1C-907D-4120-9C13-B19F1F38F801';
 const TEST_AGENT_NAME = 'ArchitectAgent';
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 // Base path for test files - use system temp directory instead of hardcoded path
 const TEST_BASE_PATH = path.join(os.tmpdir(), 'lbrx-test-a2a');
 
@@ -41,6 +47,9 @@ function ensureDirectories() {
   }
 }
 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 // Setup test agent
 function setupTestAgent() {
