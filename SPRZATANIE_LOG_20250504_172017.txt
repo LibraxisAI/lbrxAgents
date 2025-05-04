@@ -1,0 +1,8 @@
+[17:20:17] Creating new git branch refactor/clean-20250504_172017
+[17:20:17] RUN  : git checkout -b refactor/clean-20250504_172017
+[17:20:17] Creating rsync backup at /Users/maciejgad/LIBRAXIS/Repos/agents/lbrxAgents/../lbrxAgents_backup_20250504_172017 (excludes .git)
+[17:20:17] RUN  : rsync -a --exclude '.git' --delete --progress "/Users/maciejgad/LIBRAXIS/Repos/agents/lbrxAgents/" "/Users/maciejgad/LIBRAXIS/Repos/agents/lbrxAgents/../lbrxAgents_backup_20250504_172017/"
+[17:20:18] Removing empty dirs
+[17:20:18] RUN  : find /Users/maciejgad/LIBRAXIS/Repos/agents/lbrxAgents -type d -empty -not -path '*/.git*' -delete
+[17:20:18] Git add & commit
+[17:20:18] RUN  : git add -A
