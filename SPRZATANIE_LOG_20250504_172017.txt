@@ -6,3 +6,6 @@
 [17:20:18] RUN  : find /Users/maciejgad/LIBRAXIS/Repos/agents/lbrxAgents -type d -empty -not -path '*/.git*' -delete
 [17:20:18] Git add & commit
 [17:20:18] RUN  : git add -A
+[17:20:18] RUN  : git commit -m 'refactor(repo): initial cleanup — remove duplicates, deprecated scripts, utils consolidation'
+[17:20:18] Cleanup done. Review changes with: git diff main...refactor/clean-20250504_172017
+[17:20:18] Full log written to /Users/maciejgad/LIBRAXIS/Repos/agents/lbrxAgents/SPRZATANIE_LOG_20250504_172017.txt
