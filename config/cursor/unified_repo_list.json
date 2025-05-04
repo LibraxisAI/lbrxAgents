@@ -1,0 +1,38 @@
+[
+  {
+    "alias": "lbrxAgents-core",
+    "path": "~/LIBRAXIS/Repos/agents/lbrxAgents",
+    "tags": ["dev", "core", "ai-agents"],
+    "description": "Główne repo lbrxAgents – kod źródłowy, agenci, orchestrator, memory, dashboard."
+  },
+  {
+    "alias": "lbrxAgents-dashboard",
+    "path": "~/LIBRAXIS/Repos/agents/lbrxAgents/ratatui-dashboard",
+    "tags": ["dashboard", "tui", "monitoring"],
+    "description": "Terminalowy dashboard do monitorowania agentów i orchestratora."
+  },
+  {
+    "alias": "mcp-memory-service",
+    "path": "~/LIBRAXIS/Repos/agents/lbrxAgents/mcp-memory-service",
+    "tags": ["memory", "vector-db", "chroma", "ramdisk"],
+    "description": "Serwis pamięci MCP – ChromaDB, snapshoty, backupy, RAM-dysk."
+  },
+  {
+    "alias": "lbrxAgents-examples",
+    "path": "~/LIBRAXIS/Repos/agents/lbrxAgents/examples/agents",
+    "tags": ["examples", "templates", "ai-agents"],
+    "description": "Przykładowe agenty, workflow, szablony."
+  },
+  {
+    "alias": "lbrxAgents-config",
+    "path": "~/LIBRAXIS/Repos/agents/lbrxAgents/config",
+    "tags": ["config", "settings", "cursor", "zsh", "warp"],
+    "description": "Konfiguracje środowiska, MCP, terminala, edytora."
+  },
+  {
+    "alias": "lbrxAgents-memory-bank",
+    "path": "~/LIBRAXIS/Repos/agents/lbrxAgents/memory-bank",
+    "tags": ["memory-bank", "docs", "knowledge"],
+    "description": "Persistent memory bank – dokumentacja, decyzje, architektura."
+  }
+] 
