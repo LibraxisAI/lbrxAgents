@@ -1,0 +1,20 @@
+{"id":"ratatui","content":"Vendored source of the Ratatui terminal UI library (Rust workspace)"}
+{"id":"ratatui-dashboard","content":"Rust crate with main() providing TUI dashboard; contains src/ui/ (widgets) and src/services/ (data fetchers)"}
+{"id":"ratatui-dashboard/src/ui","content":"Widgets: agent_list, orchestrator_panel, log_viewer, metrics, help_overlay"}
+{"id":"ratatui-dashboard/src/services","content":"Data adapters: agents (discover .a2a), orchestrator queue, logs, memory metrics, semgrep alerts"}
+{"id":"src/utils/memory-fetch.js","content":"JavaScript helper to interact with MCP memory server"}
+{"id":"src/utils/sequential-thinking.js","content":"Utilities implementing chain-of-thought loops"}
+{"id":".a2a","content":"Filesystem-based Agent-to-Agent protocol folders: discovery, messages, status, orchestrator"}
+{"id":"templates","content":"Agent & orchestrator template JS files for quick bootstrapping"}
+{"id":"scripts","content":"Automation scripts: setup-env.sh, dashboard.sh, install-dashboard.sh, local-snapshot.sh, semgrep scanner"}
+{"id":"docs","content":"Project documentation (architecture, protocol, dashboard, etc.)"}
+{"id":"what-is-lbrx-agents.md","content":"High-level explainer of the repository and its components"} 
+{"from":"ratatui-dashboard","to":"ratatui","type":"cargo_workspace"}
+{"from":"src/utils/sequential-thinking.js","to":"src/utils/memory-fetch.js","type":"imports"}
+{"from":"scripts/dashboard.sh","to":"ratatui-dashboard","type":"exec"}
+{"rule":"commit_format","content":"feature(scope): msg (c) M&K"}
+{"rule":"readme_footer","content":"🤖 Developed with the help of Claude and OpenAI o3"}
+{"rule":"dir_naming","content":"src/utils for tool helpers; templates/ for blueprints"}
+{"path":".a2a/discovery","purpose":"agent capability cards"}
+{"path":"logs/","purpose":"runtime logs consumed by dashboard"}
+{"path":"var/memory_metrics.json","purpose":"MCP memory metrics scraped by dashboard"}

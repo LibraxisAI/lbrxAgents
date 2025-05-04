@@ -1,0 +1,4 @@
+{"from":"ratatui-dashboard","to":"ratatui","type":"cargo_workspace"}
+{"from":"ratatui-dashboard/src/ui","to":"ratatui-dashboard/src/services","type":"internal_module"}
+{"from":"scripts/dashboard.sh","to":"ratatui-dashboard","type":"exec"}
+{"from":"src/utils/sequential-thinking.js","to":"src/utils/memory-fetch.js","type":"imports"} 

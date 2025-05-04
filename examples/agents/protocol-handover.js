@@ -4,7 +4,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const agentApi = require('./agent-api');
+const agentApi = require('../../src/agent-api');
 const crypto = require('crypto');
 
 // Konfiguracja agenta

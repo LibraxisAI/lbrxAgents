@@ -1,0 +1,85 @@
+# Vibecoding Starship configuration
+
+[character]
+success_symbol = "[λ](bold green)"
+error_symbol = "[λ](bold red)"
+
+[directory]
+truncation_length = 3
+truncate_to_repo = true
+style = "bold blue"
+
+[git_branch]
+symbol = "🌱 "
+truncation_length = 20
+truncation_symbol = ""
+style = "bold purple"
+
+[git_status]
+conflicted = "⚔️ "
+ahead = "🏎️💨 ×${count}"
+behind = "🐢 ×${count}"
+diverged = "🔱 🏎️💨 ×${ahead_count} 🐢 ×${behind_count}"
+untracked = "🛤️  ×${count}"
+stashed = "📦 "
+modified = "📝 ×${count}"
+staged = "🗃️  ×${count}"
+renamed = "📛 ×${count}"
+deleted = "🗑️  ×${count}"
+style = "bold yellow"
+
+[nodejs]
+symbol = "⬢ "
+style = "bold green"
+
+[python]
+symbol = "🐍 "
+style = "bold yellow"
+
+[rust]
+symbol = "🦀 "
+style = "bold red"
+
+[golang]
+symbol = "🐹 "
+style = "bold cyan"
+
+[terraform]
+symbol = "🏗️ "
+
+[container]
+symbol = "🐋 "
+
+[package]
+symbol = "📦 "
+
+[aws]
+symbol = "☁️ "
+
+[cmd_duration]
+min_time = 500
+format = "took [$duration](bold yellow) "
+
+[time]
+disabled = false
+format = "🕙 [$time](bold blue) "
+time_format = "%H:%M"
+
+[memory_usage]
+disabled = false
+threshold = 75
+symbol = "🧠 "
+style = "bold dimmed blue"
+
+[java]
+symbol = "☕ "
+
+[docker_context]
+symbol = "🐋 "
+
+[username]
+style_user = "bold blue"
+style_root = "bold red"
+format = "[$user]($style) in "
+disabled = false
+show_always = true 

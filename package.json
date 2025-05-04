@@ -2,13 +2,15 @@
   "name": "lbrx-agents",
   "version": "1.0.0",
   "description": "Agent-to-Agent (A2A) communication protocol for AI agents",
-  "main": "src/index.js",
+  "main": "index.js",
   "bin": {
     "a2a": "./src/cli.js"
   },
   "scripts": {
     "test": "node tests/test-a2a.js",
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "semgrep:scan": "node src/utils/semgrep-scanner.js",
+    "tree:monitor": "node src/utils/tree-monitor.js"
   },
   "repository": {
     "type": "git",

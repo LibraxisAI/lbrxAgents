@@ -1,0 +1,15 @@
+{
+  "active_agents": {
+    "B8C78394-8492-4732-BCF1-24E0BD42F6CC": {
+      "status": "active",
+      "last_ping": "2025-04-20T05:55:51.795Z",
+      "last_update": "2025-04-20T05:55:51.795Z"
+    },
+    "02BB5835-45ED-4E34-A986-44CD535957EC": {
+      "status": "active",
+      "last_ping": "2025-04-20T05:56:00.058Z",
+      "last_update": "2025-04-20T05:56:00.059Z"
+    }
+  },
+  "last_update": "2025-04-20T05:56:32.773Z"
+}

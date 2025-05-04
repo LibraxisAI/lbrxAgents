@@ -1,0 +1,21 @@
+[package]
+name = "ratatui-dashboard"
+version = "0.1.0"
+edition = "2021"
+authors = ["LIBRAXIS AI Team <dev@libraxis.ai>"]
+description = "Terminal UI dashboard for lbrxAgents using Ratatui"
+homepage = "https://github.com/LibraxisAI/lbrxAgents"
+license = "MIT"
+readme = "README.md"
+
+[dependencies]
+ratatui = { workspace = true }
+crossterm = { workspace = true }
+color-eyre = { workspace = true }
+notify = "6"
+serde = { workspace = true }
+serde_json = { workspace = true }
+chrono = "0.4"
+indoc = { workspace = true }
+async-channel = "1"
+async-std = { version = "1", features = ["attributes"] } 

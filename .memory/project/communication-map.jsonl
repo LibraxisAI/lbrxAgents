@@ -1,0 +1,4 @@
+{"path":".a2a/discovery","purpose":"agent capability cards"}
+{"path":".a2a/orchestrator/commands","purpose":"queue of orchestrator tasks"}
+{"path":"logs/","purpose":"runtime logs consumed by dashboard"}
+{"path":"var/memory_metrics.json","purpose":"MCP memory metrics scraped by dashboard"} 

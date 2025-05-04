@@ -1,0 +1,45 @@
+{
+  "mcpServers": {
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
+      "env": {}
+    },
+    "memory": {
+      "command": "python",
+      "args": ["-m", "mcp_memory_service"],
+      "env": {
+        "MCP_MEMORY_CHROMA_PATH": "~/Library/Application Support/mcp-memory/chroma_db",
+        "MCP_MEMORY_BACKUPS_PATH": "~/Library/Application Support/mcp-memory/backups",
+        "EMBEDDING_MODEL": "all-MiniLM-L6-v2",
+        "VECTOR_DIMENSION": "384",
+        "DEVICE": "cpu"
+      }
+    },
+    "brave-search": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-brave-search"],
+      "env": {}
+    },
+    "semgrep": {
+      "command": "uvx",
+      "args": ["semgrep-mcp"],
+      "env": {}
+    },
+    "github": {
+      "command": "npx", 
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {}
+    },
+    "puppeteer": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-puppeteer"],
+      "env": {}
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-playwright"],
+      "env": {}
+    }
+  }
+} 

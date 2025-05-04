@@ -7,73 +7,17 @@
 
 const fs = require('fs');
 const path = require('path');
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-const agentApi = require('./agent-api');
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-const os = require('os');
 const agentApi = require('../src/agent-api');
 const crypto = require('crypto');
->>>>>>> Stashed changes
 
 // Create a test agent to communicate with
-const TEST_AGENT_ID = '44F89B1C-907D-4120-9C13-B19F1F38F801';
 const TEST_AGENT_NAME = 'ArchitectAgent';
-
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-// Base path for test files - use system temp directory instead of hardcoded path
-const TEST_BASE_PATH = path.join(os.tmpdir(), 'lbrx-test-a2a');
 
 // Zamiast hardkodować ID, generujemy je deterministycznie na podstawie nazwy agenta (lub losowo jeśli trzeba)
 const TEST_AGENT_ID = crypto.createHash('sha256').update(TEST_AGENT_NAME).digest('hex').slice(0, 32);
 
-// Create necessary directories
-function ensureDirectories() {
-  const discoveryDir = path.join(TEST_BASE_PATH, 'agents/discovery');
-  const messagesDir = path.join(TEST_BASE_PATH, 'agents/messages');
-  
-  if (!fs.existsSync(discoveryDir)) {
-    fs.mkdirSync(discoveryDir, { recursive: true });
-  }
-  
-  if (!fs.existsSync(messagesDir)) {
-    fs.mkdirSync(messagesDir, { recursive: true });
-  }
-}
-
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 // Setup test agent
 function setupTestAgent() {
-  // Ensure directories exist first
-  ensureDirectories();
-  
   const testAgentCard = {
     name: TEST_AGENT_NAME,
     version: "1.0.0",
@@ -85,19 +29,16 @@ function setupTestAgent() {
       "api_design"
     ],
     apis: {
-      message_endpoint: path.join(TEST_BASE_PATH, "agents/messages/"),
-      discovery_endpoint: path.join(TEST_BASE_PATH, "agents/discovery/")
+      message_endpoint: "/tmp/quantum-scout/agents/messages/",
+      discovery_endpoint: "/tmp/quantum-scout/agents/discovery/"
     },
     author: "Test",
     created_at: new Date().toISOString()
   };
   
-  const discoveryPath = path.join(TEST_BASE_PATH, 'agents/discovery', `${TEST_AGENT_ID}.json`);
+  const discoveryPath = path.join('/tmp/quantum-scout/agents/discovery', `${TEST_AGENT_ID}.json`);
   fs.writeFileSync(discoveryPath, JSON.stringify(testAgentCard, null, 2));
   console.log(`Test agent created: ${TEST_AGENT_NAME} (${TEST_AGENT_ID})`);
-  
-  // Set base path for the agent API to use our test directory
-  agentApi.setBasePath(path.join(TEST_BASE_PATH, '.a2a'));
 }
 
 // Simulate message from test agent
@@ -118,7 +59,7 @@ function simulateTestAgentMessage(messageType, content) {
   };
   
   // Ensure directory exists
-  const agentDir = path.join(TEST_BASE_PATH, 'agents/messages', myInfo.id);
+  const agentDir = path.join('/tmp/quantum-scout/agents/messages', myInfo.id);
   if (!fs.existsSync(agentDir)) fs.mkdirSync(agentDir, { recursive: true });
   
   // Write message

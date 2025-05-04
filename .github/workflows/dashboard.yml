@@ -1,0 +1,38 @@
+name: Dashboard CI
+
+on:
+  push:
+    branches: [ "feature/ratatui-dashboard" ]
+  pull_request:
+    paths: [ "ratatui-dashboard/**", ".github/workflows/dashboard.yml" ]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Build dashboard
+        run: cargo build --release -p ratatui-dashboard
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ratatui-dashboard-${{ matrix.os }}
+          path: target/release/ratatui-dashboard 

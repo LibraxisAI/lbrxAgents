@@ -2,7 +2,7 @@
  * Example: Listen for tasks and execute them
  */
 
-const agentApi = require('../agent-api');
+const agentApi = require('../src/agent-api');
 
 // Publish capabilities so other agents can discover us
 agentApi.publishCapabilities();
