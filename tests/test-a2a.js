@@ -9,8 +9,11 @@ const fs = require('fs');
 const path = require('path');
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 const agentApi = require('./agent-api');
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 const os = require('os');
@@ -24,7 +27,10 @@ const TEST_AGENT_NAME = 'ArchitectAgent';
 
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 // Base path for test files - use system temp directory instead of hardcoded path
@@ -48,6 +54,9 @@ function ensureDirectories() {
 }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
