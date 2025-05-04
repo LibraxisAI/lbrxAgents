@@ -137,3 +137,6 @@ dist
 /.a2a/discovery
 /.a2a/messages
 CLAUDE.md
+config/mlx-command-generator/LICENSE
+config/mlx-command-generator/mlx-startup.sh
+config/mlx-command-generator/readme.md
