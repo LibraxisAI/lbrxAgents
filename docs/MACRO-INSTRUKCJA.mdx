@@ -1,0 +1,137 @@
+# 🦾 Makro-Instrukcja (Ultimate Quickstarter)
+
+import { Badge } from 'nextra/components'
+
+> **Projekt:** LBRAXIS Agents Playground  
+> <Badge color="yellow">prosto, szybko, bez bólu</Badge>
+
+---
+
+## Co to jest i dlaczego proste?
+
+**Framework dla agentów AI** – piszesz agenta (w JS/Python/Node…), uruchamiasz dashboard (`Rust/TUI`), podglądasz życie, logi, komunikację.  
+Nie musisz znać Rust, baz danych ani ML – agenci gadają przez pliki `.json` i logi. Maksimum prostoty!
+
+<Badge color="orange">For humans</Badge> (weterynarz? ML developer? laik? – dasz radę)
+
+---
+
+## 🏎️ Ekspresowy start
+
+1. **Klonuj repo i zainstaluj zależności**
+    ```bash
+    git clone ... && cd lbrxAgents
+    npm install   # w src lub gdzie leży a2a-protocol
+    ```
+
+2. **Otwórz dwa terminale:**
+
+    - **Terminal 1: dashboard**
+        ```bash
+        cd ratatui-dashboard
+        ./scripts/dashboard.sh
+        ```
+
+    - **Terminal 2: agent demo**
+        ```bash
+        node examples/hello-agent.js
+        # lub uruchom dowolnego agenta z examples/
+        ```
+
+3. **Sprawdź czy dashboard widzi Twojego agenta!**
+
+---
+
+## 👷‍♂️ Twój agent w 1 minutę!
+
+```js
+// hello-agent.js
+const a2a = require('a2a-protocol');
+const agent = a2a.createAgent({
+  name: 'HelloAgent',
+  description: 'Odpowiadam na ping!',
+  capabilities: ['greeting']
+});
+setInterval(() => a2a.log('HelloAgent is alive!'), 10000);
+agent.onMessage(msg => {
+  if (msg.content.text === 'ping') {
+    agent.sendMessage(msg.sender_id, { text: 'pong' });
+  }
+});
+```
+- agent automatycznie pojawi się w `.a2a/discovery/HelloAgent.json`
+
+---
+
+## ✍️ Dodaj własnego agenta (JS/Node)
+
+1. **Stwórz plik na podstawie `hello-agent.js`**
+   - Zmień `name`, `capabilities` i zachowanie.
+
+2. **Odpalenie = pojawienie się agenta**
+   - Agent zapisuje kartę do `.a2a/discovery/`
+   - Dashboard to czyta i pokazuje!
+
+---
+
+## 🖥️ Start dashboardu (Rust TUI)
+
+`ratatui-dashboard/scripts/dashboard.sh`  
+Shortcut keys:
+| Key   | Action                          |
+|-------|---------------------------------|
+| `q`   | Quit                            |
+| `r`   | Refresh agenci/logi/metryki     |
+| `Tab`/`l` | Zmiana panelu Logs/Orchestrator |
+| `m`   | Panel metryk                    |
+| `?`   | Pomoc                           |
+
+---
+
+## ⚡ Szybki test komunikacji
+
+1. Agent (js) wysyła/odbiera wiadomość do siebie/sąsiada.
+2. Sprawdź log w dashboardzie (`r` odświeża).
+3. Jeśli nie widzisz agenta:
+    - Sprawdź czy się zapisał w `.a2a/discovery/`
+    - Zobacz czy logi pojawiają się w `logs/`
+
+---
+
+## 🛠️ FAQ / Troubleshooting
+
+> **Agent nie pojawia się w dashboardzie?**
+- Upewnij się, że agent wrzucił swoją „kartę” do `.a2a/discovery/`
+- Pliki muszą być `.json` i nie puste
+
+> **Logi nie aktualizują się?**
+- Agent powinien pisać logi do katalogu `logs/`
+- Odśwież (klawisz `r`)
+
+> **Błędy Node/Rust/py?**
+- Sprawdź czy masz wymagane zależności (`npm install`, Rust toolchain)
+- Uruchamiaj agenta osobno, dashboard osobno
+
+> **Nie działa na pierwszym uruchomieniu?**
+- Skasuj/make dir-y `.a2a/discovery`, `logs` i spróbuj znowu
+
+---
+
+## 📚 Dla kogo to jest?
+
+- **Weterynarz** – możesz obsłużyć wszystko bez czytania kodu, po polsku.
+- **MLowiec/DataScientist** – szybka integracja z agentami ML/Py.
+- **Zespół/Laik** – pokazujesz demo w 5 min, każdy może podciągnąć agenta.
+
+---
+
+## 💡 ProTip
+
+> Zacznij od jednego agenta, dashboardu i... Commituj jak tylko działa!
+> Każdy nowy agent = kopia hello-agent.js i zmiana tekstu.
+
+---
+
+<Badge color="green">Starter gotowy!</Badge>
+Możesz teraz opisać każdemu, jak działa projekt oraz **w 5 minut odpalić demo**.
+
