@@ -61,7 +61,11 @@ fn main() -> color_eyre::Result<()> {
                         state.semgrep_alerts = read_semgrep(&project_root);
                     },
                     KeyCode::Tab | KeyCode::Char('l') => {
-                        state.right_panel = match state.right_panel { RightPanel::Orchestrator => RightPanel::Logs, RightPanel::Logs => RightPanel::Orchestrator };
+                        state.right_panel = match state.right_panel {
+                            RightPanel::Orchestrator => RightPanel::Logs,
+                            RightPanel::Logs => RightPanel::Orchestrator,
+                            RightPanel::Metrics => RightPanel::Orchestrator,
+                        };
                     },
                     KeyCode::Char('m') | KeyCode::Char('M') => {
                         state.right_panel = RightPanel::Metrics;

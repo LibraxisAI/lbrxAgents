@@ -1,10 +1,10 @@
 use std::{fs, path::Path, collections::VecDeque};
 
 pub fn read_latest_logs(root: &Path, max_lines: usize) -> VecDeque<String> {
-    let mut entries: Vec<_> = fs::read_dir(root.join("logs"))
-        .unwrap_or_default()
-        .filter_map(|e| e.ok())
-        .collect();
+    let mut entries: Vec<_> = match fs::read_dir(root.join("logs")) {
+        Ok(read_dir) => read_dir.filter_map(|e| e.ok()).collect(),
+        Err(_) => Vec::new()
+    };
     // sort by modified desc
     entries.sort_by_key(|e| e.metadata().and_then(|m| m.modified()).ok());
     entries.reverse();
