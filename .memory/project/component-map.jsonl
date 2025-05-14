@@ -9,12 +9,3 @@
 {"id":"scripts","content":"Automation scripts: setup-env.sh, dashboard.sh, install-dashboard.sh, local-snapshot.sh, semgrep scanner"}
 {"id":"docs","content":"Project documentation (architecture, protocol, dashboard, etc.)"}
 {"id":"what-is-lbrx-agents.md","content":"High-level explainer of the repository and its components"} 
-{"from":"ratatui-dashboard","to":"ratatui","type":"cargo_workspace"}
-{"from":"src/utils/sequential-thinking.js","to":"src/utils/memory-fetch.js","type":"imports"}
-{"from":"scripts/dashboard.sh","to":"ratatui-dashboard","type":"exec"}
-{"rule":"commit_format","content":"feature(scope): msg (c) M&K"}
-{"rule":"readme_footer","content":"🤖 Developed with the help of Claude and OpenAI o3"}
-{"rule":"dir_naming","content":"src/utils for tool helpers; templates/ for blueprints"}
-{"path":".a2a/discovery","purpose":"agent capability cards"}
-{"path":"logs/","purpose":"runtime logs consumed by dashboard"}
-{"path":"var/memory_metrics.json","purpose":"MCP memory metrics scraped by dashboard"}

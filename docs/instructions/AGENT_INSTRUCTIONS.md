@@ -11,7 +11,7 @@ Your unique identifier (UUID) is:
 [INSERT_UUID_HERE]
 ```
 
-Use the above UUID as your identifier in the system. **NEVER USE ANOTHER UUID** - each agent must have a unique identifier to avoid conflicts.
+Use the generated my `uuidgen` unique UUID no. of your session, and use it as your identifier in the system. **NEVER USE ANOTHER UUID** - each agent must have a unique identifier to avoid conflicts.
 
 ## 2. Starter Code
 
