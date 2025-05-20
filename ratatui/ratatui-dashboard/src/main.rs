@@ -28,7 +28,7 @@ fn main() -> color_eyre::Result<()> {
 
     loop {
         terminal.draw(|f| {
-            let size = f.size();
+            let size = f.area();
             let block = Block::default().title("lbrxAgents Dashboard (q to quit)").borders(Borders::ALL);
             f.render_widget(block, size);
 
@@ -41,8 +41,8 @@ fn main() -> color_eyre::Result<()> {
                 RightPanel::Orchestrator => draw_orchestrator(f, chunks[1], &state),
                 RightPanel::Logs => draw_logs(f, chunks[1], &state),
                 RightPanel::Metrics => draw_metrics(f, chunks[1], &state),
-                _ => {}
             }
+
             if state.show_help { draw_help(f); }
         })?;
 

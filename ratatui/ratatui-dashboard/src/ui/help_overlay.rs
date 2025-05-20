@@ -1,7 +1,7 @@
 use ratatui::{prelude::*, widgets::*};
 
 pub fn draw_help(f: &mut Frame) {
-    let area = centered_rect(60, 40, f.size());
+    let area = centered_rect(60, 40, f.area());
     let text = vec![
         Line::raw("r – refresh"),
         Line::raw("Tab/l – toggle logs/orchestrator"),
